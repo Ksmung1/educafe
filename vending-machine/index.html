@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+          <meta charset="UTF-8">
+          <title>Vending Machine</title>
+          <style>
+                    body {
+                              margin: 0;
+                              padding: 0;
+                              font-family: 'Helvetica Neue', sans-serif;
+                              background-color: #ddd;
+                    }
+
+                    .vending-machine {
+                              width: 400px;
+                              height: 600px;
+                              background-color: #555;
+                              border: 10px solid #222;
+                              border-radius: 20px;
+                              margin: 50px auto;
+                              perspective: 800px;
+                    }
+
+                    .vending-machine-header {
+                              height: 150px;
+                              background-image: url('https://i.imgur.com/4CDMw1T.png');
+                              background-size: cover;
+                              border-radius: 20px 20px 0 0;
+                              display: flex;
+                              justify-content: center;
+                              align-items: center;
+                              text-shadow: 2px 2px #222;
+                    }
+
+                    h1 {
+                              color: #fff;
+                              font-size: 48px;
+                              margin: 0;
+                    }
+
+                    .vending-machine-body {
+                              height: 390px;
+                              display: flex;
+                              flex-wrap: wrap;
+                              justify-content: center;
+                              align-items: center;
+                              transform-style: preserve-3d;
+                              transform: rotateX(25deg);
+                              background-image: linear-gradient(to bottom, #111 0%, #222 100%);
+                              border-radius: 0 0 20px 20px;
+                    }
+
+                    .drink {
+                              width: 150px;
+                              height: 150px;
+                              margin: 20px;
+                              position: relative;
+                              transform-style: preserve-3d;
+                              transform: rotateY(-20deg) rotateX(20deg);
+                              cursor: pointer;
+                    }
+
+                    .drink:hover {
+                              transform: rotateY(0deg) rotateX(0deg);
+                              box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+                    }
+
+                    .drink img {
+                              width: 100%;
+                              height: 100%;
+                              border-radius: 20px;
+                              box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+                              position: absolute;
+                              top: 0;
+                              left: 0;
+                    }
+
+                    .drink-name {
+                              position: absolute;
+                              bottom: 10px;
+                              left: 10px;
+                              color: #fff;
+                              text-shadow: 1px 1px #000;
+                              font-size: 24px;
+                    }
+
+                    .drink-price {
+                              position: absolute;
+                              bottom: 10px;
+                              right: 10px;
+                              color: #fff;
+                              text-shadow: 1px 1px #000;
+                              font-size: 24px;
+                    }
+
+                    #dispenser {
+                              width: 100%;
+                              height: 50px;
+                              background-color: #f00;
+                              color: #fff;
+                              text-align: center;
+                              font-size: 24px;
+                              border-radius: 0 0 20px 20px;
+                              display: flex;
+                              justify-content: center;
+                              align-items: center;
+                              box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.5);
+                              position: absolute;
+                              bottom: 0
+                    }
+
+                    #dispenser button {
+                              background-color: #fff;
+                              color: #f00;
+                              border: none;
+                              padding: 10px 20px;
+                              font-size: 18px;
+                              border-radius: 10px;
+                              cursor: pointer;
+                              margin-left: 10px;
+                    }
+
+                    #dispenser button:hover {
+                              background-color: #f00;
+                              color: #fff;
+                              box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+                    }
+          </style>
+</head>
+
+<body>
+          <div class="vending-machine">
+                    <div class="vending-machine-header">
+                              <h1>Vending Machine</h1>
+                    </div>
+                    <div class="vending-machine-body">
+                              <div class="drink">
+                                        <img src="https://i.imgur.com/1Lp4DW3.png" alt="Coca-Cola">
+                                        <div class="drink-name">Coca-Cola</div>
+                                        <div class="drink-price">$1.50</div>
+                              </div>
+                              <div class="drink">
+                                        <img src="https://i.imgur.com/OVtgyeB.png" alt="Pepsi">
+                                        <div class="drink-name">Pepsi</div>
+                                        <div class="drink-price">$1.50</div>
+                              </div>
+                              <div class="drink">
+                                        <img src="https://i.imgur.com/NTiPbRW.png" alt="Mountain Dew">
+                                        <div class="drink-name">Mountain Dew</div>
+                                        <div class="drink-price">$1.50</div>
+                              </div>
+                              <div class="drink">
+                                        <img src="https://i.imgur.com/BG1wUsJ.png" alt="Sprite">
+                                        <div class="drink-name">Sprite</div>
+                                        <div class="drink-price">$1.50</div>
+                              </div>
+                              <div class="drink">
+                                        <img src="https://i.imgur.com/0syHvE4.png" alt="Dr Pepper">
+                                        <div class="drink-name">Dr Pepper</div>
+                                        <div class="drink-price">$1.50</div>
+                              </div>
+                              <div class="drink">
+                                        <img src="https://i.imgur.com/pC5pfHu.png" alt="Fanta">
+                                        <div class="drink-name">Fanta</div>
+                                        <div class="drink-price">$1.50</div>
+                              </div>
+                    </div>
+                    <div id="dispenser">
+                              <span>Your selection will be dispensed here</span>
+                              <button>Collect</button>
+                    </div>
+          </div>
+</body>
+
+</html>
