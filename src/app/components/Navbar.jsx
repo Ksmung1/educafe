@@ -23,7 +23,7 @@ const Navbar = () => {
         {/* Logo */}
         <div
           onClick={() => router.push("/")}
-          className="flex items-center gap-3 cursor-pointer"
+          className="flex items-center gap-2 cursor-pointer"
         >
           <Image
             src={logo}
@@ -34,12 +34,12 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-3">
           {navItems.map((nav) => (
             <button
               key={nav.link}
               onClick={() => router.push(nav.link)}
-              className={`uppercase tracking-[8px] transition
+              className={`uppercase tracking-[2px] transition
                 ${
                   pathname === nav.link
                     ? "font-bold text-black"
@@ -52,7 +52,7 @@ const Navbar = () => {
           ))}
           <button
             onClick={() => router.push("/contact")}
-            className="bg-[#16424a] ml-10 font-semibold py-1 px-4 rounded-sm text-white"
+            className="bg-[#16424a] ml-8 font-semibold py-1 px-4 rounded-sm text-white"
           >
             Contact us
           </button>
@@ -72,7 +72,7 @@ const Navbar = () => {
 
       {/* Mobile Dropdown */}
       {open && (
-        <div className="md:hidden bg-white border-t px-4 py-4 space-y-4">
+        <div className="md:hidden bg-white p-4 space-y-2">
           {navItems.map((nav) => (
             <button
               key={nav.link}

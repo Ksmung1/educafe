@@ -54,7 +54,7 @@ export default function Home() {
           <p className="text-xs font-light leading-tight">
             A quiet place for those who are truly trying.
           </p>
-          <div className="text-xs md:text-lg text-justify font-light mt-6 flex flex-col gap-2">
+          <div className="text-[10px] md:text-sm text-justify font-light mt-6 flex flex-col gap-2">
             <p>
               Some arrive for their first important exam. Some return with
               renewed hope and quiet determination. EDUCAFE is for every such
