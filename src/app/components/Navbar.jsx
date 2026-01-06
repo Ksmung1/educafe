@@ -100,7 +100,7 @@ const Navbar = () => {
             }}
             className="w-full bg-[#16424a] font-semibold py-2 rounded-sm text-white"
           >
-            Contact us
+            Connect with us
           </button>
         </div>
       )}

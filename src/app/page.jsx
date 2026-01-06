@@ -40,14 +40,15 @@ export default function Home() {
       {/* DETAILS */}
       <section className="flex flex-col md:flex-row items-center mt-10 gap-5 md:gap-8">
         <div className="flex flex-col w-full md:w-1/3 items-center">
-          <h1 className="text-black tracking-widest font-black text-2xl">
+          <h1 className="text-black text-center tracking-widest font-black text-xl md:text-2xl">
             To everyone trying their best,
           </h1>
-          <p className="text-xs font-light leading-tight">
-            We see the path you’re walking. The quiet effort. The hope that
-            keeps you going, even on the long days.{" "}
-          </p>
-          <div className="text-[10px] md:text-sm text-justify font-light mt-6 flex flex-col gap-2">
+
+          <div className="text-xs md:text-sm text-justify font-light my-6 flex flex-col gap-2">
+            <p>
+              We see the path you’re walking. The quiet effort. The hope that
+              keeps you going, even on the long days.
+            </p>
             <p>
               Maybe you’re studying for Boards, NEET, JEE, or the dedicated
               journey of UPSC, SSC, or Banking. Whatever your goal, we
