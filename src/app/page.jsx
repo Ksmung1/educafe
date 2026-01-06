@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import InfiniteSlider from "./components/InfiniteSlider";
 import { chronologies } from "@/data/chronologies";
 import { useEffect, useState } from "react";
-import Footer from "./components/Footer";
 
 export default function Home() {
   const router = useRouter();
@@ -26,13 +25,6 @@ export default function Home() {
     ? [...achievers].sort((a, b) => Number(a.year) - Number(b.year))
     : [];
 
-  if (loading) {
-    return (
-      <p className="text-center text-sm text-gray-500 py-10">
-        Loading achievers...
-      </p>
-    );
-  }
   return (
     <div className="w-full mx-auto px-2 md:px-4 lg:px-20">
       {/* HERO SECTION */}
@@ -49,36 +41,32 @@ export default function Home() {
       <section className="flex flex-col md:flex-row items-center mt-10 gap-5 md:gap-8">
         <div className="flex flex-col w-full md:w-1/3 items-center">
           <h1 className="text-black tracking-widest font-black text-2xl">
-            Welcome to EDUCAFE!
+            To everyone trying their best,
           </h1>
           <p className="text-xs font-light leading-tight">
-            A quiet place for those who are truly trying.
+            We see the path you’re walking. The quiet effort. The hope that
+            keeps you going, even on the long days.{" "}
           </p>
           <div className="text-[10px] md:text-sm text-justify font-light mt-6 flex flex-col gap-2">
             <p>
-              Some arrive for their first important exam. Some return with
-              renewed hope and quiet determination. EDUCAFE is for every such
-              journey.
+              Maybe you’re studying for Boards, NEET, JEE, or the dedicated
+              journey of UPSC, SSC, or Banking. Whatever your goal, we
+              understand: this isn't just about an exam. It's about the future
+              you’re determined to build.
             </p>
             <p>
-              More than a library, it is a calm corner of the world where
-              distractions gently fade, silence feels reassuring, and effort is
-              given the respect it deserves.
+              Whether this is your first attempt or your next try, your
+              perseverance matters. This is a place for that spirit. For your
+              focus, your resilience, and the quiet strength you bring.
             </p>
             <p>
-              Here, you learn at your own pace, pausing, reflecting, restarting
-              stronger, and growing steadily with time.
+              Here, you’re not just preparing for a test. You’re shaping what
+              comes next. We’re here to walk with you.
             </p>
-            <p>
-              Whether your path leads through Boards, NEET, JEE, SSC, Banking,
-              or UPSC, this space honours your commitment.
-            </p>
-            <p>
-              No pressure. No noise. Only focus, consistency, and the quiet
-              power of daily effort.
-            </p>
-            <p> Come with questions. Leave with clarity.</p>
           </div>
+          <h1 className="text-black tracking-widest font-black text-2xl">
+            Welcome to EDUCAFE!
+          </h1>
           <button
             onClick={() => router.push("/about")}
             className="bg-[#16424a] my-5 font-semibold py-1 px-4 rounded-sm text-white"
@@ -192,8 +180,6 @@ export default function Home() {
             <p className="mt-3 font-semibold text-gray-800 text-sm md:text-base">
               You can be the Next Achiever.
             </p>
-
-            <p className="text-xs md:text-sm text-gray-600">Can you?</p>
 
             <p className="text-xs md:text-sm font-medium text-[#16424a]"></p>
           </div>

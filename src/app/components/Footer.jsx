@@ -23,13 +23,11 @@ const Footer = () => {
             <div className="flex items-center gap-2">
               📞 <span>{CONTACTS.phone2}</span>
             </div>
-
           </div>
         </div>
 
         {/* CTA (ACTIONS ONLY) */}
         <div>
-
           <div className="flex flex-col gap-3">
             {/* WhatsApp */}
             <a
@@ -40,14 +38,13 @@ const Footer = () => {
             >
               WhatsApp
             </a>
-
           </div>
         </div>
       </div>
 
       {/* BOTTOM BAR */}
       <div className="border-t border-green-800 text-center text-xs text-green-200 py-4">
-        Made with ❤️ by NextJourney
+        Made with ❤️ by Nextjourney
       </div>
     </footer>
   );

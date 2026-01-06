@@ -15,6 +15,7 @@ const Navbar = () => {
     { name: "Animated Video", link: "/video" },
     { name: "gallery", link: "/gallery" },
     { name: "About", link: "/about" },
+    { name: "Focus", link: "/focus" },
   ];
 
   return (
@@ -54,7 +55,7 @@ const Navbar = () => {
             onClick={() => router.push("/contact")}
             className="bg-[#16424a] ml-8 font-semibold py-1 px-4 rounded-sm text-white"
           >
-            Contact us
+            Connect with us
           </button>
         </div>
 
