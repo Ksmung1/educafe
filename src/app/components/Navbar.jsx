@@ -29,7 +29,7 @@ const Navbar = () => {
           <Image
             src={logo}
             alt="Edu-Cafe"
-            className="w-10 h-10 rounded-full object-cover"
+            className="w-10 h-10 rounded-full object-cover object-center"
           />
           <span className="text-lg font-extrabold text-gray-800">EDUCAFE</span>
         </div>
