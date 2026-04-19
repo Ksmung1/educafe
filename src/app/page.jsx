@@ -796,8 +796,8 @@ function UpcomingProjectsSection() {
 function Footer() {
   return (
     <footer className="site-footer !flex !items-center !justify-center !gap-3 !border-t !border-white/10 !px-3 !py-4 md:!px-6 md:!py-6">
-      <span className="foot-credit !text-[0.8rem] !text-[#a8bdd8] md:!text-[0.1rem]">
-        Made with <span className="text-red-400">♥</span> by <a className="font-bold" href="https://flowpandas.com/">FlowPandas</a> 
+      <span className="foot-credit !text-[0.8rem] !text-white md:!text-[0.1rem]">
+        Made with <span className="text-red-400">♥</span> by <a className="font-bold text-white" href="https://flowpandas.com/"><span className="text-orange-500">Flow</span><span className="text-white">Pandas</span></a> 
       </span>
     </footer>
   );
