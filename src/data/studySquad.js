@@ -1,0 +1,477 @@
+const SK = ['#FDDBB4','#F5CBA7','#E8A87C','#D4A574','#C68642','#A0522D','#8D5524','#FDBCB4','#F0D9B5','#DEB887'];
+
+const HC = ['#2C1810','#5C3317','#8B4513','#A0522D','#D4A017','#1a1a2e','#FF6B6B','#4ECDC4','#9B59B6','#2ECC71','#E74C3C','#F39C12','#708090','#1ABC9C','#E91E63'];
+
+const FEMALE_NAMES = new Set(['Priya','Ananya','Riya','Kavya','Sneha','Maya','Pooja','Zara','Mia','Tara','Sana','Aisha','Divya','Meera','Siya','Layla','Pari','Nina','Luna','Ritika','Nia','Ira','Mika']);
+
+function lighten(hex, amt=28) {
+  if(!hex||hex[0]!=='#') return '#ffd';
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return `rgb(${Math.min(r+amt,255)},${Math.min(g+(amt*.85|0),255)},${Math.min(b+(amt*.7|0),255)})`;
+}
+function darken(hex,amt=22) {
+  if(!hex||hex[0]!=='#') return '#222';
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return `rgb(${Math.max(r-amt,0)},${Math.max(g-amt,0)},${Math.max(b-amt,0)})`;
+}
+
+/* ─── Hair (6 styles, all with real volume) ─── */
+function hair(style, col) {
+  const s = [
+    /* 0 — Short neat crop */
+    {
+      back:`<path d="M20,37 Q18,18 25,10 Q32,3 40,5 Q48,3 55,10 Q62,18 60,37 Q50,26 40,26 Q30,26 20,37Z" fill="${col}"/>
+            <ellipse cx="40" cy="18" rx="20" ry="13" fill="${col}"/>`,
+      front:`<path d="M20,35 Q30,28 40,28 Q50,28 60,35" fill="none" stroke="${col}" stroke-width="3.2" stroke-linecap="round" opacity="0.75"/>`
+    },
+    /* 1 — Medium wavy / bob (female) */
+    {
+      back:`<path d="M19,38 Q15,14 22,7 Q31,0 40,2 Q49,0 58,7 Q65,14 61,38 Q51,24 40,25 Q29,24 19,38Z" fill="${col}"/>
+            <path d="M14,42 Q9,59 11,72 Q15,78 21,75 Q18,61 17,49 Q19,42 14,42Z" fill="${col}"/>
+            <path d="M66,42 Q71,59 69,72 Q65,78 59,75 Q62,61 63,49 Q61,42 66,42Z" fill="${col}"/>`,
+      front:`<path d="M19,33 Q25,20 33,28" fill="${col}" opacity="0.85"/>
+             <path d="M21,40 Q16,52 17,62" fill="none" stroke="${col}" stroke-width="4.5" stroke-linecap="round"/>`
+    },
+    /* 2 — Short spiky (male) */
+    {
+      back:`<path d="M21,36 Q19,19 26,10 Q33,3 40,5 Q47,3 54,10 Q61,19 59,36 Q50,25 40,25 Q30,25 21,36Z" fill="${col}"/>`,
+      front:`<path d="M24,26 L21,15 L28,24Z" fill="${col}"/>
+             <path d="M33,20 L32,10 L38,20Z" fill="${col}"/>
+             <path d="M40,19 L40,8 L45,19Z" fill="${col}"/>
+             <path d="M48,21 L51,11 L55,21Z" fill="${col}"/>
+             <path d="M58,26 L62,15 L64,26Z" fill="${col}"/>`
+    },
+    /* 3 — Curly / voluminous */
+    {
+      back:`<circle cx="22" cy="24" r="9.5" fill="${col}"/>
+            <circle cx="32" cy="14" r="11" fill="${col}"/>
+            <circle cx="40" cy="11" r="11" fill="${col}"/>
+            <circle cx="48" cy="14" r="11" fill="${col}"/>
+            <circle cx="58" cy="24" r="9.5" fill="${col}"/>
+            <path d="M21,37 Q20,27 22,23 Q30,31 40,31 Q50,31 58,23 Q60,27 59,37Z" fill="${col}"/>`,
+      front:`<circle cx="20" cy="30" r="6.5" fill="${col}"/>
+             <circle cx="60" cy="30" r="6.5" fill="${col}"/>`
+    },
+    /* 4 — Bun / updo long (female) */
+    {
+      back:`<path d="M19,38 Q15,15 22,8 Q31,1 40,3 Q49,1 58,8 Q65,15 61,38 Q51,25 40,26 Q29,25 19,38Z" fill="${col}"/>
+            <ellipse cx="40" cy="6" rx="11" ry="9.5" fill="${col}"/>
+            <circle cx="40" cy="5" r="8.5" fill="${col}"/>
+            <path d="M14,43 Q10,62 12,74 Q17,80 22,77 Q18,63 17,51 Q19,43 14,43Z" fill="${col}"/>
+            <path d="M66,43 Q70,62 68,74 Q63,80 58,77 Q62,63 63,51 Q61,43 66,43Z" fill="${col}"/>`,
+      front:`<path d="M23,32 Q28,20 35,27" fill="none" stroke="${col}" stroke-width="2.8" stroke-linecap="round"/>
+             <path d="M57,32 Q52,20 45,27" fill="none" stroke="${col}" stroke-width="2.8" stroke-linecap="round"/>`
+    },
+    /* 5 — Tousled medium (male) */
+    {
+      back:`<path d="M17,38 Q13,14 22,7 Q31,0 40,2 Q49,0 58,7 Q67,14 63,38 Q52,23 40,24 Q28,23 17,38Z" fill="${col}"/>
+            <path d="M15,9 Q21,0 29,6" fill="${col}"/>
+            <path d="M65,9 Q59,0 51,6" fill="${col}"/>
+            <path d="M15,42 Q11,55 13,64 Q17,68 20,64 Q17,55 18,42Z" fill="${col}"/>
+            <path d="M65,42 Q69,55 67,64 Q63,68 60,64 Q63,55 62,42Z" fill="${col}"/>`,
+      front:`<path d="M19,32 Q26,18 33,26" fill="${col}"/>
+             <path d="M61,32 Q54,18 47,26" fill="${col}"/>`
+    }
+  ];
+  return s[style]||s[0];
+}
+
+/* ─── Eyebrows ─── */
+function eyebrows(type) {
+  const b = 'rgba(45,22,8,0.88)';
+  const brows = [
+    /* 0 normal arch */
+    `<path d="M26,33.5 Q31,30 35.5,32" fill="none" stroke="${b}" stroke-width="2.2" stroke-linecap="round"/>
+     <path d="M44.5,32 Q49,30 54,33.5" fill="none" stroke="${b}" stroke-width="2.2" stroke-linecap="round"/>`,
+    /* 1 focused / raised (glasses) */
+    `<path d="M26,32 Q31,28.5 35.5,30.5" fill="none" stroke="${b}" stroke-width="2.4" stroke-linecap="round"/>
+     <path d="M44.5,30.5 Q49,28.5 54,32" fill="none" stroke="${b}" stroke-width="2.4" stroke-linecap="round"/>`,
+    /* 2 relaxed droopy */
+    `<path d="M26,35 Q31,33 35.5,34" fill="none" stroke="${b}" stroke-width="2" stroke-linecap="round"/>
+     <path d="M44.5,34 Q49,33 54,35" fill="none" stroke="${b}" stroke-width="2" stroke-linecap="round"/>`,
+    /* 3 high arched excited */
+    `<path d="M26,30.5 Q31,26.5 35.5,29.5" fill="none" stroke="${b}" stroke-width="2.3" stroke-linecap="round"/>
+     <path d="M44.5,29.5 Q49,26.5 54,30.5" fill="none" stroke="${b}" stroke-width="2.3" stroke-linecap="round"/>`,
+    /* 4 worried inner raise */
+    `<path d="M26,35 Q31,29.5 35.5,33" fill="none" stroke="${b}" stroke-width="2.2" stroke-linecap="round"/>
+     <path d="M44.5,33 Q49,29.5 54,35" fill="none" stroke="${b}" stroke-width="2.2" stroke-linecap="round"/>`
+  ];
+  return brows[type]||brows[0];
+}
+
+/* ─── Eyes (with whites, iris, pupil, dual highlights) ─── */
+function eyes(type, isF) {
+  const lx=31, rx=49, ey=40;
+  const ew=isF?5.4:5.0, eh=isF?3.7:3.4, ir=2.75;
+
+  /* Female top lashes */
+  const lash = isF ? `
+    <line x1="${lx-ew}" y1="${ey}" x2="${lx-ew-1.8}" y2="${ey-2.6}" stroke="#1a1a1a" stroke-width="0.85" stroke-linecap="round"/>
+    <line x1="${lx-ew+1.2}" y1="${ey-eh}" x2="${lx-ew-0.2}" y2="${ey-eh-2.6}" stroke="#1a1a1a" stroke-width="0.85" stroke-linecap="round"/>
+    <line x1="${lx}" y1="${ey-eh-0.2}" x2="${lx}" y2="${ey-eh-3}" stroke="#1a1a1a" stroke-width="0.85" stroke-linecap="round"/>
+    <line x1="${lx+ew-1.2}" y1="${ey-eh}" x2="${lx+ew+0.2}" y2="${ey-eh-2.6}" stroke="#1a1a1a" stroke-width="0.85" stroke-linecap="round"/>
+    <line x1="${lx+ew}" y1="${ey}" x2="${lx+ew+1.8}" y2="${ey-2.6}" stroke="#1a1a1a" stroke-width="0.85" stroke-linecap="round"/>
+    <line x1="${rx-ew}" y1="${ey}" x2="${rx-ew-1.8}" y2="${ey-2.6}" stroke="#1a1a1a" stroke-width="0.85" stroke-linecap="round"/>
+    <line x1="${rx-ew+1.2}" y1="${ey-eh}" x2="${rx-ew-0.2}" y2="${ey-eh-2.6}" stroke="#1a1a1a" stroke-width="0.85" stroke-linecap="round"/>
+    <line x1="${rx}" y1="${ey-eh-0.2}" x2="${rx}" y2="${ey-eh-3}" stroke="#1a1a1a" stroke-width="0.85" stroke-linecap="round"/>
+    <line x1="${rx+ew-1.2}" y1="${ey-eh}" x2="${rx+ew+0.2}" y2="${ey-eh-2.6}" stroke="#1a1a1a" stroke-width="0.85" stroke-linecap="round"/>
+    <line x1="${rx+ew}" y1="${ey}" x2="${rx+ew+1.8}" y2="${ey-2.6}" stroke="#1a1a1a" stroke-width="0.85" stroke-linecap="round"/>
+  ` : '';
+
+  function base(iCol='#4a3020', eww=ew, ehh=eh) {
+    return `
+      <ellipse cx="${lx}" cy="${ey}" rx="${eww}" ry="${ehh}" fill="#fff"/>
+      <ellipse cx="${rx}" cy="${ey}" rx="${eww}" ry="${ehh}" fill="#fff"/>
+      <circle cx="${lx}" cy="${ey+0.5}" r="${ir}" fill="${iCol}"/>
+      <circle cx="${rx}" cy="${ey+0.5}" r="${ir}" fill="${iCol}"/>
+      <circle cx="${lx}" cy="${ey+0.5}" r="1.6" fill="#0c0c0c"/>
+      <circle cx="${rx}" cy="${ey+0.5}" r="1.6" fill="#0c0c0c"/>
+      <circle cx="${lx-0.9}" cy="${ey-0.85}" r="0.85" fill="rgba(255,255,255,0.96)"/>
+      <circle cx="${rx-0.9}" cy="${ey-0.85}" r="0.85" fill="rgba(255,255,255,0.96)"/>
+      <circle cx="${lx+0.75}" cy="${ey+0.65}" r="0.4" fill="rgba(255,255,255,0.72)"/>
+      <circle cx="${rx+0.75}" cy="${ey+0.65}" r="0.4" fill="rgba(255,255,255,0.72)"/>
+      <path d="M${lx-eww},${ey} Q${lx},${ey-ehh-0.9} ${lx+eww},${ey}" fill="none" stroke="#1a1a1a" stroke-width="0.85"/>
+      <path d="M${rx-eww},${ey} Q${rx},${ey-ehh-0.9} ${rx+eww},${ey}" fill="none" stroke="#1a1a1a" stroke-width="0.85"/>
+      ${lash}`;
+  }
+
+  switch(type) {
+    case 0: /* Normal open */ return base('#4a3020');
+
+    case 1: /* Glasses + focused */ return base('#2d1a0e') + `
+      <circle cx="${lx}" cy="${ey}" r="${ew+1.9}" fill="none" stroke="rgba(75,75,100,0.9)" stroke-width="1.9"/>
+      <circle cx="${rx}" cy="${ey}" r="${ew+1.9}" fill="none" stroke="rgba(75,75,100,0.9)" stroke-width="1.9"/>
+      <path d="M${lx+ew+1.9},${ey} L${rx-ew-1.9},${ey}" stroke="rgba(75,75,100,0.9)" stroke-width="1.9"/>
+      <path d="M${lx-ew-1.9},${ey} L${lx-ew-5},${ey-1.2}" stroke="rgba(75,75,100,0.9)" stroke-width="1.9"/>
+      <path d="M${rx+ew+1.9},${ey} L${rx+ew+5},${ey-1.2}" stroke="rgba(75,75,100,0.9)" stroke-width="1.9"/>`;
+
+    case 2: /* Sleepy half-closed */ return `
+      <ellipse cx="${lx}" cy="${ey+1.2}" rx="${ew}" ry="${eh*0.62}" fill="#fff"/>
+      <ellipse cx="${rx}" cy="${ey+1.2}" rx="${ew}" ry="${eh*0.62}" fill="#fff"/>
+      <circle cx="${lx}" cy="${ey+2.2}" r="${ir}" fill="#4a3020"/>
+      <circle cx="${rx}" cy="${ey+2.2}" r="${ir}" fill="#4a3020"/>
+      <circle cx="${lx}" cy="${ey+2.2}" r="1.6" fill="#0c0c0c"/>
+      <circle cx="${rx}" cy="${ey+2.2}" r="1.6" fill="#0c0c0c"/>
+      <circle cx="${lx-0.8}" cy="${ey+1.2}" r="0.75" fill="rgba(255,255,255,0.9)"/>
+      <circle cx="${rx-0.8}" cy="${ey+1.2}" r="0.75" fill="rgba(255,255,255,0.9)"/>
+      <path d="M${lx-ew},${ey+1.2} Q${lx},${ey-eh*0.5} ${lx+ew},${ey+1.2}" fill="none" stroke="#1a1a1a" stroke-width="0.85"/>
+      <path d="M${rx-ew},${ey+1.2} Q${rx},${ey-eh*0.5} ${rx+ew},${ey+1.2}" fill="none" stroke="#1a1a1a" stroke-width="0.85"/>
+      <path d="M${lx-ew},${ey+1.2} Q${lx},${ey+4} ${lx+ew},${ey+1.2}" fill="none" stroke="#1a1a1a" stroke-width="0.85"/>
+      <path d="M${rx-ew},${ey+1.2} Q${rx},${ey+4} ${rx+ew},${ey+1.2}" fill="none" stroke="#1a1a1a" stroke-width="0.85"/>
+      ${isF ? lash : ''}`;
+
+    case 3: /* Wide sparkling */ return `
+      <ellipse cx="${lx}" cy="${ey}" rx="${ew+1}" ry="${eh+1.1}" fill="#fff"/>
+      <ellipse cx="${rx}" cy="${ey}" rx="${ew+1}" ry="${eh+1.1}" fill="#fff"/>
+      <circle cx="${lx}" cy="${ey}" r="${ir+0.65}" fill="#5a7faa"/>
+      <circle cx="${rx}" cy="${ey}" r="${ir+0.65}" fill="#5a7faa"/>
+      <circle cx="${lx}" cy="${ey}" r="1.85" fill="#0c0c0c"/>
+      <circle cx="${rx}" cy="${ey}" r="1.85" fill="#0c0c0c"/>
+      <circle cx="${lx-1.2}" cy="${ey-1.6}" r="1.15" fill="rgba(255,255,255,0.96)"/>
+      <circle cx="${rx-1.2}" cy="${ey-1.6}" r="1.15" fill="rgba(255,255,255,0.96)"/>
+      <circle cx="${lx+1.5}" cy="${ey+0.8}" r="0.6" fill="rgba(255,255,255,0.8)"/>
+      <circle cx="${rx+1.5}" cy="${ey+0.8}" r="0.6" fill="rgba(255,255,255,0.8)"/>
+      <circle cx="${lx-2.5}" cy="${ey-2.8}" r="0.45" fill="rgba(255,255,255,0.65)"/>
+      <circle cx="${rx-2.5}" cy="${ey-2.8}" r="0.45" fill="rgba(255,255,255,0.65)"/>
+      <path d="M${lx-ew-1},${ey} Q${lx},${ey-eh-1.8} ${lx+ew+1},${ey}" fill="none" stroke="#1a1a1a" stroke-width="0.9"/>
+      <path d="M${rx-ew-1},${ey} Q${rx},${ey-eh-1.8} ${rx+ew+1},${ey}" fill="none" stroke="#1a1a1a" stroke-width="0.9"/>
+      ${lash}`;
+
+    case 4: /* Worried / nervous */ return base('#3a2010') + `
+      <ellipse cx="${lx+ew+3.2}" cy="${ey-2.5}" rx="1.15" ry="1.9" fill="rgba(110,200,255,0.52)"/>
+      <path d="M${lx+ew+4.4},${ey-4.3} Q${lx+ew+3.2},${ey-1.5} ${lx+ew+2},${ey-4.3}" fill="none" stroke="rgba(110,200,255,0.38)" stroke-width="0.5"/>`;
+
+    default: return base('#4a3020');
+  }
+}
+
+/* ─── Mouth ─── */
+function mouth(type, isF) {
+  const lc = isF ? 'rgba(210,85,75,0.5)' : 'rgba(155,55,55,0.35)';
+  switch(type) {
+    case 0: return `
+      <path d="M33,54 Q40,60 47,54" fill="${lc}"/>
+      <path d="M33,54 Q40,60 47,54" fill="none" stroke="#382020" stroke-width="1.75" stroke-linecap="round"/>
+      <path d="M34.5,54 Q40,57.5 45.5,54" fill="rgba(255,255,255,0.12)"/>`;
+    case 1: return `
+      <path d="M33,57.5 Q40,52.5 47,57.5" fill="${lc}"/>
+      <path d="M33,57.5 Q40,52.5 47,57.5" fill="none" stroke="#382020" stroke-width="1.75" stroke-linecap="round"/>`;
+    case 2: return `
+      <path d="M30,53 Q40,64.5 50,53" fill="${isF?'rgba(210,85,75,0.62)':'rgba(180,55,55,0.52)'}"/>
+      <path d="M30,53 Q40,64.5 50,53" fill="none" stroke="#2a1010" stroke-width="1.5"/>
+      <path d="M31,53 Q40,64.5 49,53" fill="rgba(255,255,255,0.82)"/>
+      <path d="M34.5,53 Q40,62 45.5,53" fill="rgba(255,255,255,0.9)"/>
+      <line x1="36" y1="53" x2="35.5" y2="57.5" stroke="rgba(190,190,190,0.55)" stroke-width="0.9"/>
+      <line x1="40" y1="53" x2="40" y2="59" stroke="rgba(190,190,190,0.55)" stroke-width="0.9"/>
+      <line x1="44" y1="53" x2="44.5" y2="57.5" stroke="rgba(190,190,190,0.55)" stroke-width="0.9"/>`;
+    case 3: return `
+      <ellipse cx="40" cy="57.5" rx="3.8" ry="4.5" fill="#2a0f0f"/>
+      <ellipse cx="40" cy="57.5" rx="2.8" ry="3.5" fill="#0d0505"/>
+      <ellipse cx="40" cy="56" rx="2" ry="1" fill="rgba(255,255,255,0.08)"/>`;
+    default: return mouth(0, isF);
+  }
+}
+
+/* ─── Accessories ─── */
+function acc(type, col) {
+  switch(type) {
+    case 'headphones': return `
+      <path d="M18,40 Q17,15 40,15 Q63,15 62,40" fill="none" stroke="${col}" stroke-width="4.5" stroke-linecap="round"/>
+      <rect x="12" y="38" width="10" height="13" rx="4" fill="${col}"/>
+      <rect x="13.5" y="39.5" width="7" height="10" rx="2.5" fill="rgba(255,255,255,0.2)"/>
+      <rect x="58" y="38" width="10" height="13" rx="4" fill="${col}"/>
+      <rect x="59.5" y="39.5" width="7" height="10" rx="2.5" fill="rgba(255,255,255,0.2)"/>`;
+    case 'graduation': return `
+      <polygon points="40,5 19,15 40,19 61,15" fill="${col}"/>
+      <rect x="22" y="14" width="36" height="5.5" rx="1.5" fill="${col}"/>
+      <rect x="22.5" y="14.5" width="35" height="2" rx="1" fill="rgba(255,255,255,0.22)"/>
+      <line x1="60" y1="15" x2="65" y2="26" stroke="${col}" stroke-width="2.2"/>
+      <circle cx="65" cy="28" r="3.5" fill="${col}"/>`;
+    case 'coffee': return `
+      <rect x="59" y="51" width="14" height="15" rx="3" fill="#6B3A00"/>
+      <path d="M73,55 Q80,59 73,62" fill="none" stroke="#6B3A00" stroke-width="2.5"/>
+      <rect x="60" y="52" width="12" height="13" rx="2.5" fill="rgba(255,255,255,0.14)"/>
+      <ellipse cx="65.5" cy="52" rx="2.2" ry="0.9" fill="rgba(255,255,255,0.38)"/>
+      <ellipse cx="63.5" cy="49.5" rx="1.2" ry="3" fill="#bbb" opacity="0.55"/>
+      <ellipse cx="67.5" cy="48.5" rx="1.2" ry="3" fill="#bbb" opacity="0.55"/>`;
+    case 'book': return `
+      <rect x="3" y="50" width="14" height="20" rx="2.5" fill="${col}"/>
+      <rect x="4.5" y="51.5" width="11" height="17" rx="2" fill="rgba(255,255,255,0.2)"/>
+      <rect x="4.5" y="51.5" width="11" height="4" rx="1.5" fill="rgba(255,255,255,0.14)"/>
+      <line x1="6.5" y1="58" x2="13.5" y2="58" stroke="${col}" stroke-width="1.2" opacity="0.65"/>
+      <line x1="6.5" y1="62" x2="13.5" y2="62" stroke="${col}" stroke-width="1.2" opacity="0.65"/>
+      <line x1="6.5" y1="66" x2="13.5" y2="66" stroke="${col}" stroke-width="1.2" opacity="0.65"/>`;
+    case 'pencil': return `
+      <g transform="rotate(35,63,28)">
+        <rect x="59" y="13" width="7" height="23" rx="2" fill="#F7D03F"/>
+        <rect x="59" y="13" width="7" height="4" rx="1.5" fill="#ddd"/>
+        <polygon points="59,36 66,36 62.5,46" fill="#E54C3C"/>
+        <rect x="59" y="33" width="7" height="3.5" fill="#e8b030"/>
+        <line x1="62.5" y1="13" x2="62.5" y2="36" stroke="rgba(0,0,0,0.08)" stroke-width="0.6"/>
+      </g>`;
+    case 'headband': return `
+      <path d="M17,26 Q40,15 63,26" fill="none" stroke="${col}" stroke-width="6.5" stroke-linecap="round" opacity="0.88"/>
+      <path d="M17,26 Q40,15 63,26" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="2.2" stroke-linecap="round"/>`;
+    case 'medal': return `
+      <line x1="64" y1="20" x2="64" y2="50" stroke="#E74C3C" stroke-width="2.8"/>
+      <path d="M59,20 L64,13 L69,20Z" fill="#E74C3C"/>
+      <circle cx="64" cy="57" r="9.5" fill="#F4D03F"/>
+      <circle cx="64" cy="57" r="8" fill="#E6B800"/>
+      <circle cx="64" cy="57" r="6.5" fill="#F4D03F"/>
+      <text x="61" y="60.5" font-size="9" fill="#8B6914" font-weight="900">1</text>`;
+    default: return '';
+  }
+}
+
+/* ─── Main build ─── */
+function buildSVG(c) {
+  const isF = FEMALE_NAMES.has(c.name);
+  const h = hair(c.hairStyle, c.hairColor);
+  const sL = lighten(c.skin, 34);
+  const sD = darken(c.skin, 20);
+  const lipCol = isF ? 'rgba(210,85,75,0.5)' : 'rgba(155,55,55,0.35)';
+  const clothCol = c.bg[1];
+
+  return `<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="bg${c.id}" cx="40%" cy="28%" r="66%">
+      <stop offset="0%" stop-color="${c.bg[0]}"/>
+      <stop offset="100%" stop-color="${c.bg[1]}"/>
+    </radialGradient>
+    <radialGradient id="sk${c.id}" cx="38%" cy="24%" r="66%">
+      <stop offset="0%" stop-color="${sL}"/>
+      <stop offset="55%" stop-color="${c.skin}"/>
+      <stop offset="100%" stop-color="${sD}"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <circle cx="40" cy="40" r="39" fill="url(#bg${c.id})"/>
+  <circle cx="40" cy="40" r="39" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+
+  <!-- Clothing / shoulders -->
+  <path d="M-1,80 L-1,66 Q13,57 27,61 L35.5,67 Q37.5,71 40,72 Q42.5,71 44.5,67 L53,61 Q67,57 81,66 L81,80Z" fill="${clothCol}" opacity="0.95"/>
+  <path d="M35.5,67 Q37.5,73.5 40,74.5 Q42.5,73.5 44.5,67" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.32)" stroke-width="0.8"/>
+
+  <!-- Neck -->
+  <rect x="35" y="61" width="10" height="9.5" rx="4" fill="${c.skin}"/>
+  <rect x="35" y="66" width="10" height="5" rx="2" fill="${sD}" opacity="0.18"/>
+
+  <!-- Hair back -->
+  ${h.back}
+
+  <!-- Ears -->
+  <ellipse cx="18.5" cy="42.5" rx="4.6" ry="5.6" fill="${c.skin}"/>
+  <ellipse cx="19.2" cy="42.5" rx="2.9" ry="3.8" fill="${sD}" opacity="0.26"/>
+  <ellipse cx="61.5" cy="42.5" rx="4.6" ry="5.6" fill="${c.skin}"/>
+  <ellipse cx="60.8" cy="42.5" rx="2.9" ry="3.8" fill="${sD}" opacity="0.26"/>
+
+  <!-- Face -->
+  <ellipse cx="40" cy="40.5" rx="21" ry="23.5" fill="url(#sk${c.id})"/>
+
+  <!-- Forehead sheen -->
+  <ellipse cx="39" cy="26" rx="10" ry="6" fill="rgba(255,255,255,0.07)"/>
+
+  <!-- Eyebrows -->
+  ${eyebrows(c.eyeType)}
+
+  <!-- Eyes -->
+  ${eyes(c.eyeType, isF)}
+
+  <!-- Nose -->
+  <path d="M38.5,49 Q40,51.5 41.5,49" fill="none" stroke="${sD}" stroke-width="1.3" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Mouth -->
+  ${mouth(c.mouthType, isF)}
+
+  <!-- Blush -->
+  <ellipse cx="25" cy="50.5" rx="5.5" ry="3.5" fill="#FF8F8F" opacity="0.17"/>
+  <ellipse cx="55" cy="50.5" rx="5.5" ry="3.5" fill="#FF8F8F" opacity="0.17"/>
+
+  <!-- Hair front -->
+  ${h.front}
+
+  <!-- Accessory -->
+  ${acc(c.accessory, c.hairColor)}
+</svg>`;
+}
+
+/* ════════════════════════════════════
+   Character Data (50 students)
+════════════════════════════════════ */
+const chars = [
+  {id:0,name:'Arjun',label:'The Overachiever',emoji:'🏆',skin:SK[2],hairColor:HC[0],hairStyle:0,eyeType:1,mouthType:2,accessory:'graduation',bg:['#FF6B6B','#C0392B'],says:["5 revisions done! Starting the 6th!","Sleep? That's for post-JEE life.","My daily schedule has zero free slots.","I color-code ALL my notes. Duh."],responds:["Amateur. I've done 7.","You call THAT studying?","Beat you — I've done 3 mock tests today!","My schedule is tighter than yours, trust."]},
+
+  {id:1,name:'Priya',label:'Last-Minute Queen',emoji:'⏰',skin:SK[0],hairColor:HC[4],hairStyle:1,eyeType:4,mouthType:1,accessory:'coffee',bg:['#F7971E','#CC6600'],says:["Exam is in 2 hours... let's GOOO!","I'll read the whole syllabus overnight.","Panic mode = peak performance mode!","Why study a month early when overnight works?"],responds:["Adrenaline IS the best study drug!","I haven't even opened the book lol","Let's compare notes... oh wait, I have none.","You're actually ahead of me at least!"]},
+
+  {id:2,name:'Rahul',label:'The Procrastinator',emoji:'😴',skin:SK[1],hairColor:HC[1],hairStyle:5,eyeType:2,mouthType:0,accessory:'none',bg:['#667eea','#5433b0'],says:["Right after this video... I'll study.","Tomorrow is literally made for studying.","My potential is just... resting.","5 more minutes of YouTube. Promise."],responds:["Bro same, what episode are you on?","Tomorrow for sure. Pinky swear.","The exam is still months away... right?","Motivation finds me eventually. I think."]},
+
+  {id:3,name:'Ananya',label:'Study Group Boss',emoji:'👑',skin:SK[3],hairColor:HC[2],hairStyle:4,eyeType:3,mouthType:2,accessory:'pencil',bg:['#11998e','#259a6a'],says:["Group study session! 8pm. Be there.","Everyone teaches one topic. That's the deal.","Not prepared? Don't come. Simple.","Collaboration ALWAYS beats isolation!"],responds:["Great! I'll bring question papers!","Can I join? I'm actually prepared this time.","I'll make the agenda. Someone take notes.","YES! Study together = learn together!"]},
+
+  {id:4,name:'Vikram',label:'The Anxious One',emoji:'😰',skin:SK[1],hairColor:HC[0],hairStyle:5,eyeType:4,mouthType:1,accessory:'none',bg:['#FC466B','#9B0000'],says:["What if I blank out in the exam hall?!","My heart rate during mock tests: 150bpm.","Is it normal to dream about answer keys?","I revised Ch.5 but forgot Ch.1. Panic."],responds:["Deep breaths. We'll be okay. Maybe.","Have you tried meditation? I should too.","My palms are permanently sweaty tbh.","Anxiety = caring. That means it's good? Right?"]},
+
+  {id:5,name:'Riya',label:'The Overconfident One',emoji:'😎',skin:SK[0],hairColor:HC[8],hairStyle:1,eyeType:0,mouthType:2,accessory:'medal',bg:['#f953c6','#6900a7'],says:["Barely studied, will still top this. Watch.","Previous papers? I trust my instincts.","AIR 1 is basically already mine.","Exam? More like a casual conversation with paper."],responds:["Bold strategy. Respecting the confidence.","Sure... let me know how that goes 😅","I wish I had 10% of your confidence!","The universe rewards self-belief, right?"]},
+
+  {id:6,name:'Rohan',label:'The Sleepy One',emoji:'💤',skin:SK[2],hairColor:HC[0],hairStyle:5,eyeType:2,mouthType:0,accessory:'none',bg:['#2c3e50','#1a252f'],says:["*snores*... wha? I'm awake, I'm awake!","Pomodoro: 25 min study, 2 hour nap.","Sleep is just studying with your eyes closed.","Night owl studying = sleep during the day."],responds:["*falls asleep mid-sentence*","Zzzz... what did you say?","Can we discuss after my power nap?","Sleep deprivation IS a study strategy."]},
+
+  {id:7,name:'Kavya',label:'The Coffee Addict',emoji:'☕',skin:SK[3],hairColor:HC[2],hairStyle:2,eyeType:3,mouthType:2,accessory:'coffee',bg:['#C94B4B','#6c1a1a'],says:["5th coffee of the day. Just warming up.","Blood type: Espresso.","Coffee is just liquid study fuel.","Hands shaking but notes are PERFECT!"],responds:["Try adding an extra shot — life changing!","I've got coffee if you need some!","We should open a study café. For real.","Coffee + formula sheet = unstoppable combo."]},
+
+  {id:8,name:'Aditya',label:'The Motivator',emoji:'🔥',skin:SK[4],hairColor:HC[0],hairStyle:0,eyeType:3,mouthType:2,accessory:'none',bg:['#f7b733','#fc4a1a'],says:["You've GOT this! Don't you dare give up!","Every expert was once a total beginner!","Failure is just feedback wearing a disguise.","Pain of studying is temporary. Regret is forever!"],responds:["YES! You're going to absolutely crush it!","That's the spirit! Channel that energy!","Together we rise! Study squad forever!","I believe in you more than you believe in yourself!"]},
+
+  {id:9,name:'Sneha',label:'The Pessimist',emoji:'😔',skin:SK[0],hairColor:HC[12],hairStyle:1,eyeType:4,mouthType:1,accessory:'none',bg:['#485563','#1e2530'],says:["10 lakh students competing. I'm done.","Even if I study, the questions will be weird.","The topper probably has a 36-hour day.","What's the point... only 5000 seats."],responds:["Yeah... the odds ARE brutal tbh.","You're not alone in feeling this way.","But what if YOU are one of the 5000?","Statistics work both ways though..."]},
+
+  {id:10,name:'Dev',label:'The Math Genius',emoji:'🧮',skin:SK[5],hairColor:HC[0],hairStyle:0,eyeType:1,mouthType:2,accessory:'pencil',bg:['#1a1a2e','#0d0d20'],says:["This integral is trivial, actually.","I solved that in my head in 4 seconds.","Math isn't hard. It's just misunderstood.","Finished the JEE paper in 90 min. Now rechecking."],responds:["Show me your method! Love elegant proofs.","Can you tutor me? Differential equations...","That's wild. What's your trick?","Math brain unlocked! How do you do it?"]},
+
+  {id:11,name:'Ishaan',label:'The Literature Lover',emoji:'📖',skin:SK[1],hairColor:HC[3],hairStyle:3,eyeType:0,mouthType:0,accessory:'book',bg:['#8E2DE2','#4A00E0'],says:["Why science? Literature is life.","I memorize organic chemistry through poetry.","Every formula has a story if you look.","My English essay: 10/10. Science: let's not discuss."],responds:["That's actually a beautiful study method!","I wish I had your way with words.","Write me a poem about thermodynamics?","The humanities student in me fully agrees!"]},
+
+  {id:12,name:'Kiran',label:'The Sports Guy',emoji:'⚽',skin:SK[6],hairColor:HC[0],hairStyle:0,eyeType:3,mouthType:2,accessory:'headband',bg:['#00b09b','#38b000'],says:["Studying burns calories, right? Asking for science.","I treat exam prep like match prep.","Fitness + focus = ultimate weapon combo!","Gym AM, grind PM. The ultimate balance."],responds:["Bro, study together after practice?","Athlete mindset WORKS for studying. Facts.","Physical health = mental health = exam score!","You inspired me to take movement breaks!"]},
+
+  {id:13,name:'Maya',label:'The Social Butterfly',emoji:'🦋',skin:SK[0],hairColor:HC[7],hairStyle:1,eyeType:3,mouthType:2,accessory:'headband',bg:['#f953c6','#7b00a0'],says:["I can't study without telling everyone first!","Group chats = group studying. Right?","Let's take a selfie before this session!","I learn best by explaining it to others!"],responds:["YES! Let's make it a study party!","Social learning is scientifically valid!","Teach me! Teaching = knowing it cold.","Can I join your group? Pretty please?"]},
+
+  {id:14,name:'Arnav',label:'The Silent Topper',emoji:'🎯',skin:SK[2],hairColor:HC[1],hairStyle:0,eyeType:0,mouthType:0,accessory:'none',bg:['#141e30','#0d1520'],says:["...","I'd rather not share my rank.","*quietly gets 99.9 percentile*","Less talking, more studying."],responds:["Mm.","Interesting.","Noted.","..."]},
+
+  {id:15,name:'Pooja',label:'Always Has Questions',emoji:'🙋',skin:SK[3],hairColor:HC[2],hairStyle:4,eyeType:3,mouthType:2,accessory:'pencil',bg:['#FF8008','#c85a00'],says:["But WHY does this formula work though?","Can you explain from the very beginning?","What if the question is phrased differently?","I have 47 doubts from just yesterday's class."],responds:["Wait — I have a question about your question!","That's EXACTLY what I was wondering!","Let's ask the teacher. Again.","Doubt-clearing is basically my love language."]},
+
+  {id:16,name:'Sid',label:'The Shortcut Seeker',emoji:'🛤️',skin:SK[1],hairColor:HC[11],hairStyle:5,eyeType:0,mouthType:2,accessory:'none',bg:['#7F7FD5','#4a4aa0'],says:["There HAS to be a shortcut for this.","Memorized all tricks, zero actual concepts.","Why understand when you can just memorize?","PYQ patterns are the ONLY thing that matters."],responds:["Bro, share the hack! What's the trick?","I found an even faster method — listen.","Smart work beats hard work. Always.","But what if the concept IS the shortcut?"]},
+
+  {id:17,name:'Dhruv',label:'The Philosophizer',emoji:'🌙',skin:SK[4],hairColor:HC[8],hairStyle:3,eyeType:0,mouthType:0,accessory:'none',bg:['#1D2671','#a0005a'],says:["Is this exam testing knowledge or memorization?","What even IS a 'correct answer' in a subjective universe?","We study for ranks, for jobs. Is THIS life?","Knowledge should be free. Why commodify education?"],responds:["Deep. Very deep. But... study anyway.","Valid points. Exam is in 2 weeks though.","I think about this at 3am. Same energy.","The examined life — worth living? Ask Socrates."]},
+
+  {id:18,name:'Akash',label:'The Tech Nerd',emoji:'💻',skin:SK[1],hairColor:HC[0],hairStyle:0,eyeType:1,mouthType:2,accessory:'headphones',bg:['#0F2027','#1a3040'],says:["I made an app to track my study sessions.","AI flashcards = efficiency, not cheating.","Automated my revision schedule with Python.","My Notion setup > my actual score, ngl."],responds:["Can you share the code? For science.","Digital tools ARE the future of learning!","I'm building a study timer too — collab?","The tools are great. Did you study the content though?"]},
+
+  {id:19,name:'Zara',label:'Listens While Studying',emoji:'🎵',skin:SK[0],hairColor:HC[9],hairStyle:1,eyeType:0,mouthType:2,accessory:'headphones',bg:['#E040FB','#00BCD4'],says:["Lo-fi is scientifically proven to help focus.","I can't study in silence — too loud in my head.","The right playlist literally unlocks my brain.","My study playlist has 847 songs. All essential."],responds:["Send. Me. The. Playlist. NOW.","Agreed! Music = brain fuel, no debate.","I need Mozart for math, rap for bio. Don't ask.","Noise-cancelling headphones changed my entire life."]},
+
+  {id:20,name:'Neel',label:'The Health Guru',emoji:'🥗',skin:SK[5],hairColor:HC[1],hairStyle:0,eyeType:0,mouthType:2,accessory:'none',bg:['#56ab2f','#1e7a00'],says:["Brain runs on omega-3. Not chips.","I meal-prep my study snacks every Sunday.","Gut health = brain health = exam score.","Water intake is the most underrated hack."],responds:["I should really eat better before exams...","Share the meal prep routine please!","You're right. I've been living on instant noodles.","Healthy body, healthy mind, healthy AIR!"]},
+
+  {id:21,name:'Mia',label:'The Junk Food Fan',emoji:'🍕',skin:SK[0],hairColor:HC[6],hairStyle:2,eyeType:2,mouthType:2,accessory:'none',bg:['#f7971e','#c45e00'],says:["Chips + soda = the official study combo.","I study better with food. All the food.","My pizza guy knows my study schedule.","Stress eating IS a coping mechanism. Period."],responds:["SAME. What are you ordering tonight?","My desk is literally a snack graveyard.","Let's order together and study together!","The calorie count is... academic."]},
+
+  {id:22,name:'Kabir',label:'Memory Technique Guru',emoji:'🧠',skin:SK[4],hairColor:HC[5],hairStyle:0,eyeType:3,mouthType:2,accessory:'none',bg:['#134E5E','#0c3040'],says:["Memory palace for organic chem? Done in a day.","I turned the periodic table into a rap song.","Spaced repetition + active recall = unstoppable.","Every formula has a story. Let me tell you."],responds:["TEACH ME. EVERYTHING.","Memory techniques are genuinely magical.","I've been using brute force. This is better.","Your brain is an absolute supercomputer."]},
+
+  {id:23,name:'Tara',label:'The Conspiracy Theorist',emoji:'🔍',skin:SK[3],hairColor:HC[8],hairStyle:1,eyeType:3,mouthType:3,accessory:'none',bg:['#373b44','#1a1e2e'],says:["The answer key is WRONG. I did the math.","Coaching institutes create hard papers to sell courses.","AIR 1 definitely got leaked questions. I'm certain.","The whole system is designed to break us."],responds:["I've suspected something similar...","The paper DID seem biased this time.","You might be onto something. Or might not be.","Have you filed an RTI request yet?"]},
+
+  {id:24,name:'Om',label:'Lost Their Notes',emoji:'📝',skin:SK[2],hairColor:HC[3],hairStyle:5,eyeType:4,mouthType:1,accessory:'none',bg:['#c0392b','#6a0d0d'],says:["I KNOW I kept my notes somewhere...","Photographic memory would fix everything.","I borrowed notes and lost THOSE too.","Maybe notes aren't the point. Concepts are."],responds:["Take my notes! Here, please!","I'll share my PDF — no worries!","We've all been there. Digital notes from now!","Did you check under the bed?!"]},
+
+  {id:25,name:'Divya',label:'Highlighter Obsessed',emoji:'🖍️',skin:SK[0],hairColor:HC[4],hairStyle:4,eyeType:0,mouthType:2,accessory:'pencil',bg:['#e1b400','#c07000'],says:["I have 12 colors. Each means something.","My books look like a rainbow exploded.","Not highlighted = didn't read. That's the rule.","Yellow = important. Pink = SUPER important. Blue = ?"],responds:["That color-coding system is genius!","Can I borrow the green one? Please?","I use one color and feel judged now tbh.","Your notes must be absolutely beautiful!"]},
+
+  {id:26,name:'Jay',label:'The Minimalist',emoji:'⬜',skin:SK[5],hairColor:HC[0],hairStyle:0,eyeType:0,mouthType:0,accessory:'none',bg:['#2c3e50','#1a252f'],says:["One notebook. One pen. That's all.","Less notes, more understanding. The way.","I've deleted every distraction from my life.","Minimalism applies to studying, obviously."],responds:["Respect the discipline. Genuinely.","How do you not get lost without detailed notes?","That takes serious self-discipline.","Either a genius or enlightened. Possibly both."]},
+
+  {id:27,name:'Sana',label:'Group Chat Spammer',emoji:'💬',skin:SK[3],hairColor:HC[2],hairStyle:1,eyeType:3,mouthType:2,accessory:'none',bg:['#1e8a30','#0d5020'],says:["Did ANYONE else find Q7 impossible?!","URGENT: answer key in group 🔴🔴","Who's awake at 3am? I have doubts.","I sent 234 messages today. Seeking clarity."],responds:["Checking the group rn!","I saw 847 unread messages from you lol","Same doubt here! You're not alone!","The group chat IS my study session honestly."]},
+
+  {id:28,name:'Harsh',label:'The Library Regular',emoji:'📚',skin:SK[6],hairColor:HC[1],hairStyle:0,eyeType:1,mouthType:0,accessory:'book',bg:['#8E0E00','#3d0500'],says:["First in, last out. Every single day.","Library is the only place I focus.","No wifi = no distractions = actual studying.","This is my table. I've claimed it."],responds:["Save my seat! I'll be there in 10!","Library gang represent!","The ambiance does something to the brain.","See you there! Study in parallel?"]},
+
+  {id:29,name:'Aisha',label:'Home Studier',emoji:'🏠',skin:SK[0],hairColor:HC[5],hairStyle:1,eyeType:0,mouthType:0,accessory:'none',bg:['#4568DC','#8E3FB5'],says:["Studying in pajamas = peak productivity.","My bed IS my study table. Efficiency.","Home means mom brings chai mid-session.","Why commute when the desk is right here?"],responds:["Pajama energy is truly unmatched.","Mom's chai > Red Bull. Period.","Home comfort = relaxed + focused!","I wish I could focus at home like you!"]},
+
+  {id:30,name:'Yuvan',label:'Notebook Collector',emoji:'📔',skin:SK[4],hairColor:HC[2],hairStyle:3,eyeType:0,mouthType:2,accessory:'pencil',bg:['#DA4453','#6a0020'],says:["This is notebook #14. All for Physics.","The right stationery is 50% of studying.","Beautiful notebooks = beautiful mind.","Haven't filled any of them but they spark joy."],responds:["I own 20 notebooks with 3 pages filled. Same.","The aesthetic of studying MATTERS!","Send me the link for those notebooks!","You're living the dream honestly."]},
+
+  {id:31,name:'Rishi',label:'YouTube Tutorial Fan',emoji:'▶️',skin:SK[2],hairColor:HC[0],hairStyle:5,eyeType:0,mouthType:2,accessory:'headphones',bg:['#CC0000','#500000'],says:["I've watched 47 lectures on thermodynamics online.","YouTube = free coaching. Unpopular truth.","One more video. Then I'll actually study.","3Blue1Brown explains this better than any textbook."],responds:["Which channel?! Give me the link!","Online learning is genuinely elite now.","I relate to 'one more video' SO deeply.","Watch party for the lecture? Let's go!"]},
+
+  {id:32,name:'Meera',label:'"Didn\'t Study" Liar',emoji:'🤥',skin:SK[3],hairColor:HC[4],hairStyle:1,eyeType:0,mouthType:2,accessory:'none',bg:['#3CA55C','#1a6030'],says:["I literally didn't study at all. (12 hrs done)","Only glanced at the syllabus. (memorized everything)","This exam will go terribly for me. (scores 95)","Don't even ask about my prep."],responds:["Sure. And I'm the Queen of England.","I don't believe you. Show me your 'blank' notes.","Your 'not studying' is everyone else's 'studied hard.'","Teach me your secret 'not studying' method!"]},
+
+  {id:33,name:'Siya',label:'Timetable Architect',emoji:'📅',skin:SK[0],hairColor:HC[7],hairStyle:4,eyeType:3,mouthType:2,accessory:'pencil',bg:['#FDC830','#c06000'],says:["My timetable has 15-minute precision blocks.","New schedule every Sunday. Perfect one coming.","Color-coded Notion + Google Cal + Physical planner.","I never follow it but making it is therapeutic."],responds:["Send me the template! I need this energy.","Planning IS productive. Right? Right?!","Can you make mine too? Please?","I've made 9 timetables this month. Same vibes."]},
+
+  {id:34,name:'Rex',label:'The Competitive One',emoji:'⚔️',skin:SK[5],hairColor:HC[0],hairStyle:2,eyeType:3,mouthType:2,accessory:'medal',bg:['#0F0C29','#2a1a6e'],says:["What's YOUR mock score? Just curious.","I study MORE knowing others are studying.","Competition doesn't scare me. It FUELS me.","I can't sleep knowing someone else is studying."],responds:["Challenge accepted. It is SO on.","I'll keep my rank private. Find it yourself.","Healthy competition makes toppers. Fact.","You're my rival AND my motivation. Strange."]},
+
+  {id:35,name:'Layla',label:'The Supportive Friend',emoji:'💕',skin:SK[0],hairColor:HC[8],hairStyle:1,eyeType:0,mouthType:2,accessory:'none',bg:['#ee0979','#9e0040'],says:["You're doing amazing. Never forget that.","Can I help you study? Together is better!","Bad study day? Rest. Try again tomorrow.","Your journey is yours alone. Don't compare."],responds:["Thank you, I really needed to hear that.","You're the kindest person in this entire squad!","I'm rooting for you too. Always have been.","Everyone needs a Layla in their corner."]},
+
+  {id:36,name:'Aarav',label:'The Rank Checker',emoji:'📊',skin:SK[2],hairColor:HC[1],hairStyle:0,eyeType:3,mouthType:0,accessory:'none',bg:['#4776E6','#6040c8'],says:["What rank in the last mock? Tell me.","Rank predictor says AIR 4,521. Adjusting.","I check rankings every 30 minutes. Minimum.","If your percentile isn't 99+, recalibrate NOW."],responds:["Got 94 percentile — up from last week!","The rank doesn't define the journey!","At 97. Happy AND stressed. Simultaneously.","Stop checking rankings and start studying lol"]},
+
+  {id:37,name:'Pari',label:'The Syllabus Reader',emoji:'📋',skin:SK[3],hairColor:HC[6],hairStyle:3,eyeType:0,mouthType:0,accessory:'book',bg:['#56CCF2','#0066aa'],says:["I've read the entire syllabus 11 times.","Weightage analysis is step one. Always.","Never study what's not in the syllabus. Ever.","I know every topic's frequency since 2010."],responds:["That's genuinely genius strategy!","I need your weightage breakdown chart!","Data-driven studying is the future.","Study high-weightage topics first — agreed?"]},
+
+  {id:38,name:'Kush',label:'PYQ Analyst',emoji:'🔬',skin:SK[6],hairColor:HC[0],hairStyle:0,eyeType:1,mouthType:2,accessory:'pencil',bg:['#373B44','#1a1d2e'],says:["20 years of previous year papers. Done.","Every question has a 1-in-4 repeat chance.","The examiner has a pattern. I've cracked it.","Don't read theory. Understand past questions."],responds:["Teach me your ways, master!","PYQs ARE the real syllabus. Agreed.","Which year had the hardest paper?","Pattern recognition is a legit skill!"]},
+
+  {id:39,name:'Nina',label:'Mock Test Junkie',emoji:'📝',skin:SK[0],hairColor:HC[10],hairStyle:2,eyeType:3,mouthType:2,accessory:'none',bg:['#ED213A','#7a0000'],says:["89 mock tests this month. Just warming up.","Analysis of every wrong answer is non-negotiable.","Mock test day feels like the real thing. I love it.","Haven't mocked? Then you haven't studied."],responds:["89?! That's dedication REDEFINED.","Full error analysis or it doesn't count!","I do 3 mocks a week. Nowhere near you.","Test-taking is a skill. You've mastered it."]},
+
+  {id:40,name:'Veer',label:'The Meditator',emoji:'🧘',skin:SK[4],hairColor:HC[1],hairStyle:3,eyeType:0,mouthType:0,accessory:'none',bg:['#0D324D','#3a1060'],says:["10 min meditation before study changes everything.","Calm mind = clear concepts. That's science.","The breath anchors a wandering mind.","I study WITH stress, not despite it."],responds:["Teach me this superpower, please.","I tried once. I fell asleep immediately.","Inner peace + exam prep. That's rare air.","You're the balance this squad desperately needs."]},
+
+  {id:41,name:'Luna',label:'The Stress Eater',emoji:'🍫',skin:SK[0],hairColor:HC[12],hairStyle:1,eyeType:4,mouthType:0,accessory:'none',bg:['#7B4397','#3a0070'],says:["Chocolate doesn't ask questions. Chocolate understands.","Stress level = 6 bags of chips per chapter.","If studying were food I'd be a genius.","I eat my anxiety. It tastes like biscuits."],responds:["*passes the chocolate silently*","I ate an entire Oreo pack during Physics. Same.","Emotional eating is self-care. Possibly.","Let's stress eat together and call it a session!"]},
+
+  {id:42,name:'Ritika',label:'The Ultimate Planner',emoji:'🗂️',skin:SK[3],hairColor:HC[2],hairStyle:4,eyeType:0,mouthType:2,accessory:'pencil',bg:['#00B4DB','#005070'],says:["Revision plan is color-coded by urgency + topic.","I have a backup plan for my backup plan.","Everything is tracked in a spreadsheet. Everything.","Planning isn't procrastination. It's preparation."],responds:["Can you be my personal life coach?","I've never planned anything. TEACH ME.","Send the spreadsheet! I'll adapt it!","The detail in your planning is literally art."]},
+
+  {id:43,name:'Sam',label:'The Daydreamer',emoji:'☁️',skin:SK[2],hairColor:HC[3],hairStyle:5,eyeType:2,mouthType:0,accessory:'none',bg:['#89f7fe','#0a6080'],says:["Sorry... I was thinking about cloud formations.","I opened the book but my mind went to Patagonia.","Studying and daydreaming feel the same honestly.","Time passed. So I probably studied? Maybe?"],responds:["I drifted off mid-sentence too. Solidarity.","Where did your mind go? Sounds better than Physics.","The cosmic mind needs cosmic breaks!","Teach me productive daydreaming?"]},
+
+  {id:44,name:'Nia',label:'The Perfectionist',emoji:'💎',skin:SK[0],hairColor:HC[4],hairStyle:1,eyeType:1,mouthType:0,accessory:'pencil',bg:['#614385','#2a006e'],says:["I redid my notes because the margin wasn't straight.","Good enough is NEVER good enough. Never.","I've been on page 3 for a week. Perfecting it.","If it's not 100%, it needs more work. Period."],responds:["I understand you completely. It's terrifying.","Some progress > perfect zero though!","Your finished work is probably extraordinary.","Can I see your notes for motivation?"]},
+
+  {id:45,name:'Leo',label:'"Good Enough" Guy',emoji:'🤷',skin:SK[5],hairColor:HC[13],hairStyle:0,eyeType:0,mouthType:2,accessory:'none',bg:['#56CCF2','#004488'],says:["60% is passing. Targeting 65 for safety buffer.","Done is better than perfect. Lesson learned.","I know enough to survive the exam. Probably.","Why overachieve when 'achieved' works?"],responds:["Self-awareness is genuinely impressive!","But what if you're capable of so much more?","Lower stress, similar outcome? Solid strategy.","The 'good enough' philosophy has real charm."]},
+
+  {id:46,name:'Ira',label:'The Early Bird',emoji:'🌅',skin:SK[3],hairColor:HC[4],hairStyle:3,eyeType:3,mouthType:2,accessory:'coffee',bg:['#f7971e','#c04000'],says:["4:30 AM and 3 chapters done already!","The morning brain is just DIFFERENT. Sharper.","By the time you wake up I've done half the syllabus.","Sunrise = study time. That's non-negotiable."],responds:["HOW are you even human at 4am?!","I want to be you when I grow up.","My 4am is still last night for me.","The quiet of early morning IS magical. Truth."]},
+
+  {id:47,name:'Finn',label:'The Night Owl',emoji:'🦉',skin:SK[1],hairColor:HC[5],hairStyle:5,eyeType:2,mouthType:2,accessory:'headphones',bg:['#232526','#111116'],says:["2am is my golden hour. Peak productivity.","The night is quiet. My mind is alive.","Everyone's asleep? Zero distractions. Perfect.","Morning people are just night owls who gave up."],responds:["Night squad! The most elite club.","3am is when I finally understand calculus.","We share this darkness and wisdom.","Daytime studying is just warmup for us."]},
+
+  {id:48,name:'Ayaan',label:'The Consistent One',emoji:'🙂',skin:SK[2],hairColor:HC[0],hairStyle:0,eyeType:0,mouthType:0,accessory:'none',bg:['#5C6BC0','#3040a0'],says:["Not the best, but I show up every single day.","Slow and steady is my actual strategy.","I don't know if I'll crack it, but I'll try.","Average effort today, better tomorrow."],responds:["Consistency beats intensity! Keep going!","Showing up is literally 80% of the battle!","Most relatable person in this entire squad.","You're not average — you're consistent. Big difference."]},
+
+  {id:49,name:'Mika',label:'The Comeback Kid',emoji:'⚡',skin:SK[4],hairColor:HC[9],hairStyle:2,eyeType:3,mouthType:2,accessory:'medal',bg:['#f7ff00','#a00080'],says:["Failed twice. Third attempt is MY TIME.","Every setback was a setup for this comeback.","Scar tissue is stronger than regular tissue.","They counted me out. Watch me prove them ALL wrong."],responds:["You're literally the most inspirational person here!","Resilience is the most underrated exam skill.","Failed attempts aren't failures — they're data.","If you crack it this time, the story will be LEGENDARY."]}
+];
+
+const studySquadCharacters = chars;
+const femaleNames = FEMALE_NAMES;
+const maleNames = new Set(
+  studySquadCharacters
+    .map((character) => character.name)
+    .filter((name) => !femaleNames.has(name))
+);
+
+export const studySquadByGender = {
+  male: studySquadCharacters.filter((character) => maleNames.has(character.name)),
+  female: studySquadCharacters.filter((character) => femaleNames.has(character.name)),
+};
+
+export function buildStudySquadSvg(character) {
+  return buildSVG(character);
+}
+
+export { studySquadCharacters };
+
+export function getStudySquadCharacter(index) {
+  return studySquadCharacters[index % studySquadCharacters.length];
+}
+
+export function getStudySquadCharacterByGender(index, gender) {
+  if (gender === 'male') {
+    return studySquadByGender.male[index % studySquadByGender.male.length];
+  }
+
+  if (gender === 'female') {
+    return studySquadByGender.female[index % studySquadByGender.female.length];
+  }
+
+  return getStudySquadCharacter(index);
+}

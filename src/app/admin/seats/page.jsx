@@ -2,13 +2,14 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { seatLayout } from "@/data/seatLayout";
+import { studySquadCharacters } from "@/data/studySquad";
 
 function getSeatClasses(status, selected) {
   const base = "relative flex h-12 w-12 flex-col items-center justify-center rounded-[10px] border text-[0.68rem] font-semibold transition";
   const stateClass = {
-    available: "border-[#23e07b]/45 bg-[#0b1220] text-[#d8e8f8]",
-    reserved: "border-[#8f6a20]/40 bg-[linear-gradient(180deg,rgba(35,30,12,0.98),rgba(19,15,8,0.98))] text-[#f8e6b5]",
-    shifting: "border-[#2d5a8c]/50 bg-[linear-gradient(180deg,rgba(9,23,40,0.98),rgba(8,15,26,0.98))] text-[#8dbaf0]",
+    available: "border-[#16c35b] bg-[#16c35b] text-[#04110a]",
+    reserved: "border-[#2f7dff] bg-[#2f7dff] text-white",
+    shifting: "border-[#f2b93b] bg-[#f2b93b] text-[#241500]",
   }[status];
 
   return `${base} ${stateClass} ${selected ? "ring-2 ring-[#23e07b]" : ""}`;
@@ -18,8 +19,10 @@ export default function AdminSeatsPage() {
   const [seats, setSeats] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
+  const [saveError, setSaveError] = useState("");
   const [selectedSeatNumber, setSelectedSeatNumber] = useState(1);
-  const [form, setForm] = useState({ state: "available", name: "", exam: "", shift: "" });
+  const [form, setForm] = useState({ state: "available", name: "", gender: "", avatarId: "", exam: "", shift: "" });
 
   useEffect(() => {
     const load = async () => {
@@ -44,6 +47,8 @@ export default function AdminSeatsPage() {
     seatNumber: selectedSeatNumber,
     state: "available",
     name: "",
+    gender: "",
+    avatarId: null,
     exam: "",
     shift: "",
   };
@@ -52,10 +57,12 @@ export default function AdminSeatsPage() {
     setForm({
       state: selectedSeat.state || "available",
       name: selectedSeat.name || "",
+      gender: selectedSeat.gender || "",
+      avatarId: Number.isFinite(Number(selectedSeat.avatarId)) ? String(selectedSeat.avatarId) : "",
       exam: selectedSeat.exam || "",
       shift: selectedSeat.shift || "",
     });
-  }, [selectedSeatNumber, selectedSeat.state, selectedSeat.name, selectedSeat.exam, selectedSeat.shift]);
+  }, [selectedSeatNumber, selectedSeat.state, selectedSeat.name, selectedSeat.gender, selectedSeat.avatarId, selectedSeat.exam, selectedSeat.shift]);
 
   const SeatBtn = ({ num }) => {
     const seat = seatMap.get(num) || { state: "available" };
@@ -65,27 +72,24 @@ export default function AdminSeatsPage() {
         className={getSeatClasses(seat.state, selectedSeatNumber === num)}
         onClick={() => setSelectedSeatNumber(num)}
       >
-        {seat.state === "available" ? (
-          <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-[#23e07b]" />
-        ) : seat.state === "reserved" ? (
-          <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-[#f2b93b]" />
-        ) : seat.state === "shifting" ? (
-          <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-[#4e9cff]" />
-        ) : null}
-        <span>{num}</span>
+        <span className="text-[0.78rem]">{num}</span>
       </button>
     );
   };
 
   const saveSeat = async () => {
     setSaving(true);
+    setSaveMessage("");
+    setSaveError("");
     try {
       const payload = {
         seatNumber: selectedSeatNumber,
         state: form.state,
-        name: form.name,
-        exam: form.exam,
-        shift: form.shift,
+        name: form.name.trim(),
+        gender: form.gender,
+        avatarId: form.avatarId === "" ? null : Number(form.avatarId),
+        exam: form.exam.trim(),
+        shift: form.shift.trim(),
       };
 
       const res = await fetch("/api/seats", {
@@ -99,13 +103,18 @@ export default function AdminSeatsPage() {
         throw new Error(saved.error || "Failed to save seat");
       }
 
-      setSeats((current) => {
-        const rest = current.filter((seat) => Number(seat.seatNumber) !== selectedSeatNumber);
-        return [...rest, saved].sort((a, b) => a.seatNumber - b.seatNumber);
-      });
+      const refreshRes = await fetch(`/api/seats?ts=${Date.now()}`, { cache: "no-store" });
+      const refreshedSeats = await refreshRes.json();
+
+      if (!refreshRes.ok || !Array.isArray(refreshedSeats)) {
+        throw new Error("Seat saved, but failed to refresh latest data.");
+      }
+
+      setSeats(refreshedSeats);
+      setSaveMessage(`Seat ${selectedSeatNumber} saved.`);
     } catch (error) {
       console.error(error);
-      alert(error.message);
+      setSaveError(error.message || "Failed to save seat");
     } finally {
       setSaving(false);
     }
@@ -168,11 +177,27 @@ export default function AdminSeatsPage() {
             <div className="mb-4 text-sm uppercase tracking-[0.12em] text-[#7890a8]">Seat #{String(selectedSeatNumber).padStart(2, "0")}</div>
 
             <div className="space-y-4">
+              {saveMessage ? (
+                <div className="rounded-2xl border border-[#23e07b]/30 bg-[#0b1a12] px-4 py-3 text-sm text-[#bdf4dc]">
+                  {saveMessage}
+                </div>
+              ) : null}
+
+              {saveError ? (
+                <div className="rounded-2xl border border-[#ff6b6b]/30 bg-[#221011] px-4 py-3 text-sm text-[#ffc2c2]">
+                  {saveError}
+                </div>
+              ) : null}
+
               <label className="block">
                 <span className="mb-2 block text-sm text-[#a8bdd8]">State</span>
                 <select
                   value={form.state}
-                  onChange={(event) => setForm((current) => ({ ...current, state: event.target.value }))}
+                  onChange={(event) => {
+                    setSaveMessage("");
+                    setSaveError("");
+                    setForm((current) => ({ ...current, state: event.target.value }));
+                  }}
                   className="w-full rounded-xl border border-white/10 bg-[#0b1220] px-3 py-3 text-sm text-white outline-none"
                 >
                   <option value="available">Available</option>
@@ -185,17 +210,62 @@ export default function AdminSeatsPage() {
                 <span className="mb-2 block text-sm text-[#a8bdd8]">Person name</span>
                 <input
                   value={form.name}
-                  onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
+                  onChange={(event) => {
+                    setSaveMessage("");
+                    setSaveError("");
+                    setForm((current) => ({ ...current, name: event.target.value }));
+                  }}
                   placeholder="Student name"
                   className="w-full rounded-xl border border-white/10 bg-[#0b1220] px-3 py-3 text-sm text-white outline-none"
                 />
               </label>
 
               <label className="block">
+                <span className="mb-2 block text-sm text-[#a8bdd8]">Gender</span>
+                <select
+                  value={form.gender}
+                  onChange={(event) => {
+                    setSaveMessage("");
+                    setSaveError("");
+                    setForm((current) => ({ ...current, gender: event.target.value }));
+                  }}
+                  className="w-full rounded-xl border border-white/10 bg-[#0b1220] px-3 py-3 text-sm text-white outline-none"
+                >
+                  <option value="">Auto / not set</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </label>
+
+              <label className="block">
+                <span className="mb-2 block text-sm text-[#a8bdd8]">Particular avatar</span>
+                <select
+                  value={form.avatarId}
+                  onChange={(event) => {
+                    setSaveMessage("");
+                    setSaveError("");
+                    setForm((current) => ({ ...current, avatarId: event.target.value }));
+                  }}
+                  className="w-full rounded-xl border border-white/10 bg-[#0b1220] px-3 py-3 text-sm text-white outline-none"
+                >
+                  <option value="">Auto by gender</option>
+                  {studySquadCharacters.map((character) => (
+                    <option key={character.id} value={character.id}>
+                      {character.name} · {character.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="block">
                 <span className="mb-2 block text-sm text-[#a8bdd8]">Exam</span>
                 <input
                   value={form.exam}
-                  onChange={(event) => setForm((current) => ({ ...current, exam: event.target.value }))}
+                  onChange={(event) => {
+                    setSaveMessage("");
+                    setSaveError("");
+                    setForm((current) => ({ ...current, exam: event.target.value }));
+                  }}
                   placeholder="Can be empty"
                   className="w-full rounded-xl border border-white/10 bg-[#0b1220] px-3 py-3 text-sm text-white outline-none"
                 />
@@ -205,7 +275,11 @@ export default function AdminSeatsPage() {
                 <span className="mb-2 block text-sm text-[#a8bdd8]">Shift note</span>
                 <input
                   value={form.shift}
-                  onChange={(event) => setForm((current) => ({ ...current, shift: event.target.value }))}
+                  onChange={(event) => {
+                    setSaveMessage("");
+                    setSaveError("");
+                    setForm((current) => ({ ...current, shift: event.target.value }));
+                  }}
                   placeholder="Optional, used for shifting seats"
                   className="w-full rounded-xl border border-white/10 bg-[#0b1220] px-3 py-3 text-sm text-white outline-none"
                 />

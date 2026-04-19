@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "@/assets/logo.png";
 
 const navItems = [
@@ -12,6 +12,7 @@ const navItems = [
   { name: "Exams", href: "#exams" },
   { name: "Seats", href: "#seats" },
   { name: "Achievers", href: "#achievers" },
+  { name: "Projects", href: "#projects" },
   { name: "Animated Video", href: "/video" },
   { name: "Contact", href: "#contact" },
 ];
@@ -22,6 +23,25 @@ export default function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const handlePointerDown = (event) => {
+      if (!navRef.current?.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
+    };
+  }, [open]);
 
   const handleNavigate = (href) => {
     setOpen(false);
@@ -50,7 +70,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed left-1/2 top-0 z-[950] w-[min(1200px,calc(100%-0.5rem))] -translate-x-1/2 rounded-b-[14px] border border-t-0 border-white/10 bg-[rgba(5,8,15,0.9)] px-3 py-2 backdrop-blur-xl md:px-6 md:py-3">
+    <nav ref={navRef} className="fixed left-1/2 top-0 z-[950] w-[min(1200px,calc(100%-0.5rem))] -translate-x-1/2 rounded-b-[14px] border border-t-0 border-white/10 bg-[rgba(5,8,15,0.9)] px-3 py-2 backdrop-blur-xl md:px-6 md:py-3">
       <div className="grid grid-cols-[1fr_auto] items-center gap-3 lg:flex lg:items-center lg:justify-between">
         <button
           type="button"
@@ -58,7 +78,7 @@ export default function Navbar() {
           className="flex min-w-0 items-center justify-self-start gap-2"
           aria-label="Go to home page"
         >
-          <div className="relative h-9 w-9 overflow-hidden rounded-full border border-white/10 bg-white md:h-10 md:w-10">
+          <div className="relative h-9 w-9 overflow-hidden rounded-full border border-green-400 bg-white md:h-10 md:w-10">
             <Image
               src={logo}
               alt="EduCafe logo"

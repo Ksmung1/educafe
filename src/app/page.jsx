@@ -14,13 +14,16 @@ import educafe7 from "@/assets/educafe7.png";
 import educafe8 from "@/assets/educafe8.png";
 import educafe9 from "@/assets/educafe9.png";
 import educafe10 from "@/assets/educafe10.png";
-import educafe21 from "@/assets/educafe21.png";
+import project from "@/assets/project.png";
+import educafe20 from "@/assets/educafe20.png";
 import { chronologies } from "@/data/chronologies";
+import { newsSeed } from "@/data/newsSeed";
 import HomeSeatMap from "@/app/components/HomeSeatMap";
 import Navbar from "@/app/components/Navbar";
+import { MessageCircle } from "lucide-react";
 
 const heroStats = [
-  { value: "20+", label: "Active Students" },
+  { value: "200+", label: "Enrolled Students" },
   { value: "34+", label: "Exam Tracks" },
   { value: "100%", label: "Focus Guaranteed" },
 ];
@@ -46,13 +49,13 @@ const upcomingExams = [
 ];
 
 const tickerItems = [
-  { text: "NEET UG City Intimation Slip Released", detail: "Download at neet.nta.nic.in" },
-  { text: "JEE Main Session 2 Result Expected", detail: "~April 20, 2026" },
-  { text: "UPSC CSE 2026", detail: "933 Vacancies Notified" },
-  { text: "NEET UG Exam", detail: "May 3, 2026 | 2 PM-5 PM" },
-  { text: "UPSC Prelims", detail: "May 24, 2026" },
-  { text: "UPSC Mains", detail: "Aug 21, 2026" },
-  { text: "AIIMS NORCET 10 Result", detail: "14,500+ qualify Stage 2" },
+  { text: "NEET UG City Intimation Slip Released", detail: "Download at neet.nta.nic.in", href: "https://neet.nta.nic.in/" },
+  { text: "JEE Main Session 2 Result Expected", detail: "~April 20, 2026", href: "https://jeemain.nta.ac.in/" },
+  { text: "UPSC CSE 2026", detail: "933 Vacancies Notified", href: "https://upsc.gov.in/" },
+  { text: "NEET UG Exam", detail: "May 3, 2026 | 2 PM-5 PM", href: "https://neet.nta.nic.in/" },
+  { text: "UPSC Prelims", detail: "May 24, 2026", href: "https://upsc.gov.in/" },
+  { text: "UPSC Mains", detail: "Aug 21, 2026", href: "https://upsc.gov.in/" },
+  { text: "AIIMS NORCET 10 Result", detail: "14,500+ qualify Stage 2", href: "https://www.aiimsexams.ac.in/" },
 ];
 
 const galleryImages = [
@@ -68,43 +71,13 @@ const galleryImages = [
   { src: educafe10, label: "Night study" },
 ];
 
-const newsCards = [
+const upcomingProjects = [
   {
-    tag: "Action Required", tone: "alert", date: "April 12, 2026",
-    title: "NEET UG 2026 City Intimation Slips Released - Download Now Before Admit Card",
-    body: "NTA released exam city slips for over 26 lakh candidates registered for NEET UG 2026 on April 12. Candidates must log in at neet.nta.nic.in using their application number and date of birth to check their allotted city. The admit card with the exact exam centre is expected in the last week of April. The exam is on May 3, 2026 - from 2:00 PM to 5:00 PM in a single shift across 552 cities in India and 14 cities abroad.",
-    source: "NTA Official", featured: true, image: educafe21,
+    image: project,
+    title: "",
+    body: ""
   },
-  {
-    tag: "Result Update", tone: "result", date: "Expected ~April 20, 2026",
-    title: "JEE Main Session 2 Result Expected April 20",
-    body: "Session 2 was conducted April 2-8, 2026. The provisional answer key has been released for challenge. Final scores expected by April 20. Best-of-two sessions rule applies for AIR.",
-    source: "jeemain.nta.nic.in",
-  },
-  {
-    tag: "Notification", tone: "exam", date: "February 4, 2026",
-    title: "UPSC CSE 2026 Out - 933 Vacancies for IAS, IPS, IFS",
-    body: "UPSC released the Civil Services Examination 2026 notification for 933 vacancies. Last date to apply was February 24. Prelims on May 24 - last chance for many age-limit candidates.",
-    source: "upsc.gov.in",
-  },
-  {
-    tag: "Result", tone: "result", date: "April 2026",
-    title: "AIIMS NORCET 10 - 14,500+ Candidates Qualify for Stage 2",
-    body: "AIIMS announced Stage 2 qualifiers for the NORCET Nursing Officer Recruitment Test. Candidates can check their status at aiimsexams.ac.in.",
-    source: "AIIMS Official",
-  },
-  {
-    tag: "Admit Card", tone: "admit", date: "Expected late April 2026",
-    title: "NEET UG 2026 Admit Card - Expected by April 29",
-    body: "After the city slip release, the NEET UG 2026 Hall Ticket is expected to be activated by April 29 at neet.nta.nic.in. Candidates need application number + DOB to download.",
-    source: "NTA Official",
-  },
-  {
-    tag: "Recruitment", tone: "gen", date: "April 2026",
-    title: "SSC Selection Post Phase 14 - 3,003 Posts Notified",
-    body: "SSC released Phase 14 notification for 3,003 posts across various departments. Applications open on the official SSC portal. Eligibility: 10th pass to Graduation depending on post.",
-    source: "ssc.gov.in",
-  },
+
 ];
 
 const whyChoose = [
@@ -143,40 +116,49 @@ function ratioGroup(aspectRatio) {
 // ─── Hero ─────────────────────────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="hero !mx-auto !grid !w-full !max-w-[1200px] !grid-cols-1 !items-center !gap-6 !px-3 !pt-20 md:!grid-cols-[1.05fr_0.95fr] md:!px-10 md:!pt-28">
-      <div className="hero-left rv !p-0">
-        <div className="tag !inline-flex !items-center !gap-1.5 !rounded-full !border !border-white/10 !bg-white/5 !px-2.5 !py-1.5 !text-[0.55rem] !font-semibold !tracking-[0.1em] !text-[#a8bdd8]">
+    <section className="hero  !mx-auto !grid !w-full !max-w-[1200px] !grid-cols-1 !items-center !gap-2  !pt-0 md:!grid-cols-[1.05fr_0.95fr] md:!px-10 md:!pt-20 pb-0 mb-0">
+       <div className="!absolute !inset-0 !bg-black/10" />
+           <div className="tag !inline-flex !items-center !gap-1.5 !rounded-full !border !border-white/10 !bg-white/5 !px-2.5 !py-1.5 !text-[0.55rem] !font-semibold !tracking-[0.1em] !text-[#a8bdd8]">
           <span className="tag-pulse" />Dedicated Study Hub
         </div>
+      <div className="hero-left py-4 px-3 overflow-hidden rv !bg-[url('/images/bg.png')] bg-opacity-0 !bg-cover  !bg-no-repeat  !bg-[80%_center] ">
+    
         <h1 className="hero-heading !mb-4 !font-['Playfair_Display'] !text-[clamp(1.9rem,6vw,4.8rem)] !font-black !leading-[1.05] !tracking-[-0.02em] !text-[#d8e8f8]">
           Your exam.<br />Your timeline.<br /><em>Our space.</em>
         </h1>
-        <p className="hero-body !mb-5 !max-w-[460px] !text-[0.72rem] !font-light !leading-[1.8] !text-[#a8bdd8] md:!text-[1rem]">
+        <p className="hero-body !mb-0 !max-w-[460px] !text-[0.72rem] !font-light !leading-[1.8] !text-gray-100 md:!text-[1rem]">
           Most students don&apos;t fail because they lack talent -<br />
           they fail because they lack the right environment.<br />
           At EduCafe, we fix that. For <strong>UPSC, NEET, JEE, SSC, Banking</strong> and beyond - your preparation starts here.
         </p>
-        <div className="btn-set !flex !flex-wrap !gap-2">
-          <a href="#exams" className="btn-primary !inline-flex !items-center !gap-1.5 !rounded-full !bg-[linear-gradient(135deg,#1db56a,#14a05e)] !px-3.5 !py-2 !text-[0.65rem] !font-semibold !text-white !shadow-[0_8px_28px_rgba(29,181,106,0.28)] md:!px-5 md:!py-3 md:!text-[0.82rem]">
+        <div className=" flex  items-end !gap-4">
+          <a href="#exams" className="!inline-flex !items-center !gap-1.5 !rounded-full !bg-[linear-gradient(135deg,#1db56a,#14a05e)] !px-2 !py-2 text-[8px] !font-semibold !text-white !shadow-[0_8px_28px_rgba(29,181,106,0.28)] md:!px-5 md:!py-3 md:!text-[0.82rem]">
             <span>📅</span>2026 Exam Dates
           </a>
-          <a href="#contact" className="btn-outline !inline-flex !items-center !rounded-full !border !border-white/10 !px-3.5 !py-2 !text-[0.65rem] !font-medium !text-[#a8bdd8] md:!px-5 md:!py-3 md:!text-[0.82rem]">
-            Talk to Us
-          </a>
-        </div>
-        <div className="hero-proof !mt-5 !flex !gap-5 !border-t !border-white/10 !pt-5 md:!gap-8 md:!mt-10 md:!pt-8">
+
+        <div className="hero-proof !mt-0 !flex !gap-5 !border-t !border-white/10 !pt-5 md:!gap-8 md:!mt-10 md:!pt-8">
           {heroStats.map((item) => (
             <div key={item.label}>
-              <div className="proof-num !font-['Playfair_Display'] !text-[1.3rem] !font-black !leading-none !text-white md:!text-[2rem]">{item.value}</div>
-              <div className="proof-lbl !mt-1 !text-[0.52rem] !font-medium !text-[#7890a8] md:!text-[0.68rem]">{item.label}</div>
+              <div className="proof-num !font-['Playfair_Display'] !text-[1rem] !font-black !leading-none !text-white md:!text-[2rem]">{item.value}</div>
+              <div className="proof-lbl !mt-1 !text-[0.4rem] !font-medium !text-[#7890a8] md:!text-[0.68rem]">{item.label}</div>
             </div>
           ))}
         </div>
+          </div>
+
+
       </div>
 
-      <div className="hero-right rv rv-delay-1 !relative !min-h-[360px] !overflow-hidden !rounded-[18px] !border !border-white/10 !bg-[rgba(255,255,255,0.03)] !p-4 md:!min-h-[520px] md:!rounded-[28px] md:!p-6">
+    </section>
+  );
+}
+
+function BelowHeader () {
+  return (
+    
+      <div className="hero-right  rv rv-delay-1 !relative !min-h-[360px] !overflow-hidden !rounded-[18px] !border !border-white/10 !bg-[rgba(255,255,255,0.03)] !p-4 md:!min-h-[520px] md:!rounded-[28px] md:!p-6">
         <div className="hero-right-glow !absolute !inset-0 !bg-[radial-gradient(circle_at_top,rgba(29,181,106,0.18),transparent_55%)]" />
-        <div className="hero-watermark pointer-events-none !absolute !right-0 !top-4 !select-none !text-[clamp(2.5rem,10vw,7rem)] !font-black !tracking-[0.18em] !text-white/5">CAFÉ</div>
+        {/* <div className="hero-watermark pointer-events-none !absolute !right-0 !top-4 !select-none !text-[clamp(2.5rem,10vw,7rem)] !font-black !tracking-[0.18em] !text-white/5">CAFÉ</div> */}
         <div className="panel-eyebrow !relative !z-10 !mb-2 !text-[0.52rem] !font-bold !uppercase !tracking-[0.12em] !text-[#1db56a] md:!text-[0.62rem]">We prepare you for</div>
         <div className="panel-title !relative !z-10 !mb-3 !font-['Playfair_Display'] !text-[1rem] !font-black !leading-tight !text-white md:!text-[1.55rem]">
           Every exam that<br />matters in India
@@ -200,26 +182,33 @@ function Hero() {
           ))}
         </div>
       </div>
-    </section>
-  );
+  )
 }
-
-// ─── Ticker ───────────────────────────────────────────────────────────────
 function Ticker() {
   const track = [...tickerItems, ...tickerItems];
+
+  const handleNavigate = (href) => {
+    if (!href) return;
+    window.location.href = href;
+  };
+
   return (
-    <div className="ticker-bar !relative !z-[3] !overflow-hidden !border-y !border-[#f2b93b]/15 !bg-[linear-gradient(90deg,rgba(5,8,15,0.98),rgba(8,13,28,0.98))] !py-2">
+    <div className="ticker-bar !relative !z-[3] !overflow-hidden !border-y !border-white/10 !bg-black !py-2">
       <div className="ticker-track !flex !whitespace-nowrap !gap-12">
         {track.map((item, index) => (
-          <span key={`${item.text}-${index}`} className="t-item !inline-flex !items-center !gap-1.5 !text-[0.6rem] !text-[#a8bdd8]">
-            <span className="t-sep">◆</span>{item.text} - <b>{item.detail}</b>
+          <span
+            key={`${item.text}-${index}`}
+            onClick={() => handleNavigate(item.href)}
+            className="t-item !inline-flex !cursor-pointer !items-center !gap-1.5 !text-[0.6rem] !text-[#a8bdd8]"
+          >
+            <span className="t-sep">◆</span>
+            {item.text} - <b>{item.detail}</b>
           </span>
         ))}
       </div>
     </div>
   );
 }
-
 // ─── Gallery ──────────────────────────────────────────────────────────────
 function GalleryShowcase({ images }) {
   const getDimensions = (img) => {
@@ -253,7 +242,7 @@ function GalleryShowcase({ images }) {
   const [slideIndex,setSlideIndex]=useState(0);
   const [selectedImage,setSelectedImage]=useState(null);
   const [isPaused,setIsPaused]=useState(false);
-  const [mobileSeed,setMobileSeed]=useState(()=>Math.floor(Date.now()/45000));
+  const [mobileSeed,setMobileSeed]=useState(0);
 
   useEffect(()=>{
     if(displayOrder.length<=1||isPaused||selectedImage) return;
@@ -263,8 +252,9 @@ function GalleryShowcase({ images }) {
 
   useEffect(()=>{
     if(!displayOrder.length) return;
+    const syncTimer=window.setTimeout(()=>setMobileSeed(Math.floor(Date.now()/45000)),0);
     const t=window.setInterval(()=>setMobileSeed(c=>c+1),45000);
-    return ()=>window.clearInterval(t);
+    return ()=>{window.clearTimeout(syncTimer);window.clearInterval(t);};
   },[displayOrder.length]);
 
   const currentSlide=useMemo(()=>{
@@ -283,17 +273,16 @@ function GalleryShowcase({ images }) {
   const gridClassFor=(ratio)=>ratio>=1.45?"g-main":ratio<=0.82?"ratio-tall":"ratio-balanced";
 
   return (
-    <div className="gallery-wrap !bg-[#080d1c]" id="gallery">
-      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-12 md:!px-10 md:!py-20">
-        <div className="gallery-hdr rv !mb-6 !flex !items-end !justify-between !gap-4">
+    <div className="gallery-wrap !bg-black" id="gallery">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6 md:!px-10 md:!py-20">
+        <div className="gallery-hdr w-full !mb-2 !flex flex-col !items-start  !gap-0">
           <div>
-            <div className="sec-eyebrow !mb-2 !text-[0.5rem] !font-bold !uppercase !tracking-[0.14em] !text-[#0fdbc8] md:!text-[0.62rem]">Inside EduCafe</div>
-            <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
+            <h2 className="sec-title mb-0 !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
               A place built for<br /><em>deep work</em>
             </h2>
           </div>
-          <p className="gallery-note !max-w-[110px] !text-right !text-[0.58rem] !leading-5 !text-[#7890a8] md:!max-w-[180px] md:!text-[0.78rem] md:!leading-6">
-            Every corner is designed to help you stay in the zone longer.
+          <p className="mt-0 !text-left w-full !text-[0.58rem] !leading-5 !text-[#7890a8] md:!text-[0.78rem] md:!leading-6">
+ A glimpse into the environment
           </p>
         </div>
 
@@ -337,7 +326,7 @@ function GalleryShowcase({ images }) {
             onClick={()=>{setSelectedImage(null);setIsPaused(false);}}
             onKeyDown={(e)=>{if(e.key==="Escape"||e.key==="Enter"||e.key===" "){e.preventDefault();setSelectedImage(null);setIsPaused(false);}}}
           >
-            <div className="image-viewer-panel !w-full !max-w-[920px] !overflow-hidden !rounded-[18px] !border !border-white/10 !bg-[linear-gradient(180deg,rgba(9,14,26,0.98),rgba(5,8,15,0.98))] !p-3 sm:!p-6" onClick={(e)=>e.stopPropagation()}>
+            <div className="image-viewer-panel !w-full !max-w-[920px] !overflow-hidden !rounded-[18px] !border !border-white/10 !bg-black !p-3 sm:!p-6" onClick={(e)=>e.stopPropagation()}>
               <button type="button" className="image-viewer-close !mb-3 !ml-auto !grid !h-8 !w-8 !place-items-center !rounded-full !border !border-white/10 !bg-white/5 !text-sm !text-white" onClick={()=>{setSelectedImage(null);setIsPaused(false);}}>×</button>
               <div className="image-viewer-image !relative !aspect-[4/3] !overflow-hidden !rounded-[12px] !bg-black sm:!aspect-[16/9]">
                 <Image src={getSource(selectedImage)} alt={selectedImage.label} fill sizes="100vw" className="object-contain"/>
@@ -353,70 +342,118 @@ function GalleryShowcase({ images }) {
 
 // ─── News ─────────────────────────────────────────────────────────────────
 function NewsSection() {
-  const tagMap = [
-    {cls:"nt-alert", icon:"🔔 Action Required"},
-    {cls:"nt-result",icon:"📊 Result Update"},
-    {cls:"nt-exam",  icon:"📝 Notification"},
-    {cls:"nt-result",icon:"✅ Result"},
-    {cls:"nt-admit", icon:"🪪 Admit Card"},
-    {cls:"nt-gen",   icon:"📋 Recruitment"},
-  ];
+  const [newsItems, setNewsItems] = useState(newsSeed);
+
+  useEffect(() => {
+    const loadNews = async () => {
+      try {
+        const res = await fetch("/api/news", { cache: "no-store" });
+        const data = await res.json();
+
+        if (res.ok && Array.isArray(data) && data.length > 0) {
+          setNewsItems(data);
+        }
+      } catch {}
+    };
+
+    loadNews();
+  }, []);
+
+  const featuredItem = newsItems.find((item) => item.featured) || newsItems[0];
+  const featuredIndex = featuredItem ? newsItems.findIndex((item) => item === featuredItem) : -1;
+  const restItems = newsItems.filter((_, index) => index !== featuredIndex);
+  const sideItems = restItems.slice(0, 2);
+  const lowerItems = restItems.slice(2, 5);
+
+  const toneMap = {
+    alert: { cls: "nt-alert", icon: "Action Required" },
+    result: { cls: "nt-result", icon: "Result Update" },
+    exam: { cls: "nt-exam", icon: "Notification" },
+    admit: { cls: "nt-admit", icon: "Admit Card" },
+    gen: { cls: "nt-gen", icon: "Recruitment" },
+  };
+
+  const getToneUi = (item) => {
+    const toneUi = toneMap[item?.tone] || toneMap.gen;
+    return {
+      cls: toneUi.cls,
+      label: item?.tag || toneUi.icon || "Update",
+    };
+  };
+
+  if (!featuredItem) return null;
+
   return (
-    <div className="news-wrap !bg-[#0c1325]" id="news">
-      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-12 md:!px-10 md:!py-20">
-        <div className="news-hdr rv !mb-6 !flex !items-end !justify-between !gap-4">
-          <div>
-            <div className="sec-eyebrow !mb-2 !text-[0.5rem] !font-bold !uppercase !tracking-[0.14em] md:!text-[0.62rem]">Latest Updates</div>
-            <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">Exam <em>News & Alerts</em></h2>
-          </div>
-          <p className="sec-desc !max-w-[130px] !text-right !text-[0.55rem] !leading-5 !text-[#a8bdd8] md:!max-w-[260px] md:!text-[0.8rem] md:!leading-7">
+    <div className="news-wrap !bg-black" id="news">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6 md:!px-10 md:!py-20">
+          <div className="rv">
+          <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
+Exam <em>News & Alerts</em>          </h2>
+          <p className="sec-desc mb-2 !max-w-[520px] !text-[0.65rem] !leading-6 !text-[#a8bdd8] md:!text-[0.92rem] md:!leading-7">
             Verified updates from NTA, UPSC and other official bodies - April 2026
           </p>
         </div>
+
         <div className="news-grid rv !grid !gap-2 lg:!grid-cols-[1.35fr_1fr_1fr]">
-          {/* Featured card */}
-          <article className="news-card news-featured !overflow-hidden !rounded-[14px] !border !border-white/10 !bg-[linear-gradient(180deg,rgba(10,15,26,0.98),rgba(6,10,18,0.98))] md:!rounded-[22px]">
-            <div className="!relative !h-[140px] !overflow-hidden !bg-[#15203a] md:!h-[260px]">
-              <Image src={newsCards[0].image} alt={newsCards[0].title} fill sizes="(max-width:768px) 100vw, 50vw" className="!object-cover"/>
-              <div className="!absolute !inset-0 !bg-[linear-gradient(to_top,rgba(5,8,15,0.75),transparent_50%)]"/>
+          <article className="news-card news-featured !overflow-hidden !rounded-[14px] !border !border-white/10 !bg-black md:!rounded-[22px]">
+            <div className="!relative  !overflow-hidden !bg-[#15203a] md:!h-[260px]">
+              {featuredItem.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={featuredItem.image}
+                  alt={featuredItem.title}
+                  className="!h-full !w-full !object-cover"
+                />
+              ) : (
+                <div className="!flex !h-full !w-full !items-end !bg-[radial-gradient(circle_at_top_left,rgba(29,181,106,0.2),transparent_35%),linear-gradient(135deg,#000000,#000000)] !p-4">
+                  <div className="!max-w-[80%] !text-[0.9rem] !font-semibold !leading-snug !text-white/90 md:!text-[1.2rem]">
+                    {featuredItem.tag}
+                  </div>
+                </div>
+              )}
+              <div className="!absolute !inset-0 !bg-[linear-gradient(to_top,rgba(0,0,0,0.8),transparent_50%)]" />
             </div>
             <div className="news-body !p-3">
-              <span className="news-tag nt-alert !text-[0.5rem] md:!text-[0.65rem]">🔔 Action Required</span>
-              <div className="news-date !mt-1 !text-[0.5rem] !text-[#7890a8] md:!text-[0.65rem]">{newsCards[0].date}</div>
-              <div className="news-title !mt-1 !text-[0.65rem] !font-semibold !leading-snug !text-white md:!text-[0.85rem]">{newsCards[0].title}</div>
-              <p className="news-snippet !mt-1 !text-[0.58rem] !leading-relaxed !text-[#a8bdd8] md:!text-[0.75rem]">{newsCards[0].body}</p>
+              <span className={
+                `news-tag ${getToneUi(featuredItem).cls} !text-[0.5rem] md:!text-[0.65rem]`
+              }>
+                {getToneUi(featuredItem).label}
+              </span>
+              <div className="news-date !mt-1 !text-[0.5rem] !text-[#7890a8] md:!text-[0.65rem]">{featuredItem.dateLabel}</div>
+              <div className="news-title !mt-1 !text-[0.65rem] !font-semibold !leading-snug !text-white md:!text-[0.85rem]">{featuredItem.title}</div>
+              <p className="news-snippet !mt-1 !text-[0.58rem] !leading-relaxed !text-[#a8bdd8] md:!text-[0.75rem]">{featuredItem.body}</p>
             </div>
             <div className="news-footer !flex !items-center !justify-between !border-t !border-white/5 !px-3 !py-2 !text-[0.5rem] !text-[#7890a8] md:!text-[0.72rem]">
-              <span>Source: {newsCards[0].source}</span><span className="news-arrow">→</span>
+              <span>Source: {featuredItem.source}</span><span className="news-arrow">-&gt;</span>
             </div>
           </article>
 
           <div className="news-side !grid !gap-2">
-            {[1,2].map((i)=>(
-              <article key={i} className="news-card !overflow-hidden !rounded-[14px] !border !border-white/10 !bg-[linear-gradient(180deg,rgba(10,15,26,0.98),rgba(6,10,18,0.98))] md:!rounded-[22px]">
+            {sideItems.map((item) => (
+              <article key={item._id || item.title} className="news-card !overflow-hidden !rounded-[14px] !border !border-white/10 !bg-black md:!rounded-[22px]">
                 <div className="news-body !p-3">
-                  <span className={`news-tag ${tagMap[i].cls} !text-[0.5rem] md:!text-[0.62rem]`}>{tagMap[i].icon}</span>
-                  <div className="news-date !mt-1 !text-[0.48rem] !text-[#7890a8] md:!text-[0.62rem]">{newsCards[i].date}</div>
-                  <div className="news-title !mt-1 !text-[0.6rem] !font-semibold !leading-snug !text-white md:!text-[0.78rem]">{newsCards[i].title}</div>
-                  <p className="news-snippet !mt-1 !text-[0.55rem] !leading-relaxed !text-[#a8bdd8] md:!text-[0.72rem]">{newsCards[i].body}</p>
+                  <span className={`news-tag ${getToneUi(item).cls} !text-[0.5rem] md:!text-[0.62rem]`}>{getToneUi(item).label}</span>
+                  <div className="news-date !mt-1 !text-[0.48rem] !text-[#7890a8] md:!text-[0.62rem]">{item.dateLabel}</div>
+                  <div className="news-title !mt-1 !text-[0.6rem] !font-semibold !leading-snug !text-white md:!text-[0.78rem]">{item.title}</div>
+                  <p className="news-snippet !mt-1 !text-[0.55rem] !leading-relaxed !text-[#a8bdd8] md:!text-[0.72rem]">{item.body}</p>
                 </div>
                 <div className="news-footer !flex !items-center !justify-between !border-t !border-white/5 !px-3 !py-1.5 !text-[0.48rem] !text-[#7890a8] md:!text-[0.68rem]">
-                  <span>Source: {newsCards[i].source}</span><span className="news-arrow">→</span>
+                  <span>Source: {item.source}</span><span className="news-arrow">-&gt;</span>
                 </div>
               </article>
             ))}
           </div>
 
-          {[3,4,5].map((i)=>(
-            <article key={i} className="news-card !overflow-hidden !rounded-[14px] !border !border-white/10 !bg-[linear-gradient(180deg,rgba(10,15,26,0.98),rgba(6,10,18,0.98))] md:!rounded-[22px]">
+          {lowerItems.map((item) => (
+            <article key={item._id || item.title} className="news-card !overflow-hidden !rounded-[14px] !border !border-white/10 !bg-[linear-gradient(180deg,rgba(10,15,26,0.98),rgba(6,10,18,0.98))] md:!rounded-[22px]">
               <div className="news-body !p-3">
-                <span className={`news-tag ${tagMap[i].cls} !text-[0.5rem] md:!text-[0.62rem]`}>{tagMap[i].icon}</span>
-                <div className="news-date !mt-1 !text-[0.48rem] !text-[#7890a8] md:!text-[0.62rem]">{newsCards[i].date}</div>
-                <div className="news-title !mt-1 !text-[0.6rem] !font-semibold !leading-snug !text-white md:!text-[0.78rem]">{newsCards[i].title}</div>
-                <p className="news-snippet !mt-1 !text-[0.55rem] !leading-relaxed !text-[#a8bdd8] md:!text-[0.72rem]">{newsCards[i].body}</p>
+                <span className={`news-tag ${getToneUi(item).cls} !text-[0.5rem] md:!text-[0.62rem]`}>{getToneUi(item).label}</span>
+                <div className="news-date !mt-1 !text-[0.48rem] !text-[#7890a8] md:!text-[0.62rem]">{item.dateLabel}</div>
+                <div className="news-title !mt-1 !text-[0.6rem] !font-semibold !leading-snug !text-white md:!text-[0.78rem]">{item.title}</div>
+                <p className="news-snippet !mt-1 !text-[0.55rem] !leading-relaxed !text-[#a8bdd8] md:!text-[0.72rem]">{item.body}</p>
               </div>
               <div className="news-footer !flex !items-center !justify-between !border-t !border-white/5 !px-3 !py-1.5 !text-[0.48rem] !text-[#7890a8] md:!text-[0.68rem]">
-                <span>Source: {newsCards[i].source}</span><span className="news-arrow">→</span>
+                <span>Source: {item.source}</span><span className="news-arrow">-&gt;</span>
               </div>
             </article>
           ))}
@@ -426,7 +463,40 @@ function NewsSection() {
   );
 }
 
-// ─── ExamTable ────────────────────────────────────────────────────────────
+function CabinsSection() {
+  return (
+    <div className="cabins-wrap !bg-black" id="cabins">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6 md:!px-10 md:!py-20">
+          <div className="rv">
+          <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
+            Quiet cabins built for<br /><em>deep focus</em>
+          </h2>
+          <p className="sec-desc !max-w-[520px] !text-[0.65rem] !leading-6 !text-[#a8bdd8] md:!text-[0.92rem] md:!leading-7">
+            A dedicated close-up of the EduCafe cabin space for uninterrupted study sessions.
+          </p>
+        </div>
+
+
+
+
+        <div className="rv !overflow-hidden !rounded-[18px] !border !border-white/10 !bg-[linear-gradient(180deg,rgba(10,15,26,0.98),rgba(6,10,18,0.98))] !p-2 md:!rounded-[28px] md:!p-3">
+          <div className="!relative !aspect-[16/10] !overflow-hidden !rounded-[14px] md:!rounded-[22px]">
+            <Image
+              src={educafe20}
+              alt="EduCafe cabins"
+              fill
+              sizes="(max-width: 768px) 100vw, 1200px"
+              className="!object-cover"
+              priority={false}
+            />
+            <div className="!absolute !inset-0 !bg-[linear-gradient(to_top,rgba(5,8,15,0.34),transparent_42%)]" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ExamTable() {
   const [filter, setFilter] = useState("all");
   const categories = ["all","UPSC","Banking","SSC","Medical","Engineering","Insurance","RBI","SEBI"];
@@ -435,11 +505,10 @@ function ExamTable() {
 
   return (
     <div className="exam-wrap" id="exams">
-      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-12 md:!px-10 md:!py-20">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6 md:!px-10 md:!py-20">
         <div className="rv">
-          <div className="sec-eyebrow !mb-2 !text-[0.5rem] !font-bold !uppercase !tracking-[0.14em] md:!text-[0.62rem]">2026 Calendar</div>
           <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
-            Every deadline.<br /><em>One place.</em>
+            Exam Calendar.<br /><em>2026</em>
           </h2>
           <p className="sec-desc !max-w-[520px] !text-[0.65rem] !leading-6 !text-[#a8bdd8] md:!text-[0.92rem] md:!leading-7">
             Chronological exam timeline verified against official notifications. Filter by category. Gold dates are confirmed. Grey are estimated.
@@ -491,178 +560,39 @@ function ExamTable() {
           </div>
         </div>
 
-        <p className="table-note !mt-3 !text-[0.52rem] !leading-5 !text-[#7890a8] md:!text-[0.72rem] md:!leading-6">
-          ✦ Confirmed = verified from official notification | Est. = based on official patterns | Strikethrough = already conducted
-        </p>
+
       </div>
     </div>
   );
 }
 
-// ─── SeatMap ──────────────────────────────────────────────────────────────
-function SeatMap() {
-  const [selected, setSelected] = useState(null);
-  const counts = useMemo(() => {
-    return Array.from({length:43},(_,i)=>i+1).reduce(
-      (acc,seat)=>{acc[getSeatStatus(seat)]+=1;return acc;},
-      {available:0,reserved:0,shifting:0}
-    );
-  },[]);
 
-  const seatGroups = seatLayout;
-  const renderSeatButton = (num) => (
-    <button key={num} type="button" className={getSeatClasses(getSeatStatus(num))} onClick={()=>setSelected({num,...seatData[num]})}>
-      {seatData[num]?.state==="reserved"?(
-        <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-[#f2b93b] shadow-[0_0_0_2px_rgba(242,185,59,0.18)]" />
-      ):seatData[num]?.state==="shifting"?(
-        <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-[#4e9cff] shadow-[0_0_0_2px_rgba(78,156,255,0.18)]" />
-      ):null}
-      <div className="seat-num !text-[0.45rem] sm:!text-[0.58rem]">{num}</div>
-    </button>
-  );
 
-  return (
-    <div className="seats-wrap !bg-[#080d1c]" id="seats">
-      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-12 md:!px-10 md:!py-20">
-        <div className="seats-header rv !mb-5 !flex !flex-col !items-start !justify-between !gap-4 lg:!flex-row lg:!items-end">
-          <div>
-            <div className="sec-eyebrow !mb-2 !text-[0.5rem] !font-bold !uppercase !tracking-[0.14em] md:!text-[0.62rem]">Live Floor Plan</div>
-            <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">Reserve <em>your seat.</em></h2>
-            <p className="sec-desc !max-w-[420px] !text-[0.65rem] !leading-6 !text-[#a8bdd8] md:!text-[0.92rem] md:!leading-7">Click any seat to see its status. Green seats are open - tap one to claim your spot via WhatsApp instantly.</p>
-          </div>
-          <div className="seats-legend !grid !grid-cols-2 !gap-1.5 sm:!grid-cols-4">
-            {[{cls:"!bg-[#23e07b]",l:"Available"},{cls:"!bg-[#f2b93b]",l:"Reserved"},{cls:"!bg-[#4e9cff]",l:"Shifting"},{cls:"!bg-white",l:"Instructor"}].map(({cls,l})=>(
-              <div key={l} className="!flex !items-center !gap-1.5 !rounded-full !border !border-white/10 !bg-white/5 !px-2.5 !py-1.5 !text-[0.52rem] !text-[#a8bdd8] md:!text-[0.72rem]">
-                <div className={`!h-2 !w-2 !rounded-full ${cls}`}/>{l}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Seat map wrapper — scrollable on mobile so nothing gets clipped */}
-        <div className="rv !-mx-3 !overflow-x-auto md:!mx-0">
-          <div className="!px-3 md:!px-0" style={{minWidth:"300px"}}>
-            <div className="room-container !relative !overflow-hidden !rounded-[16px] !border !border-white/10 !bg-[linear-gradient(180deg,rgba(8,13,26,0.98),rgba(6,10,18,0.98))] !p-3 md:!rounded-[28px] md:!p-6">
-              <div className="!pointer-events-none !absolute !inset-x-0 !top-0 !h-px !bg-[linear-gradient(90deg,transparent,rgba(35,224,123,0.6),transparent)]"/>
-              <div className="!mb-2 !inline-flex !items-center !gap-1.5 !rounded-full !border !border-white/10 !bg-white/5 !px-2.5 !py-1 !text-[0.48rem] !font-semibold !uppercase !text-[#a8bdd8] md:!text-[0.62rem]">
-                <span className="!h-1.5 !w-1.5 !rounded-full !bg-[#23e07b]"/>Live · 43 Seats
-              </div>
-              <div className="!mb-3 !text-[0.55rem] !font-semibold !uppercase !tracking-[0.1em] !text-[#7890a8] md:!text-[0.78rem]">EduCafe Study Hall</div>
-
-              <div className="room-layout">
-                {/* Top row */}
-                <div className="room-row row-top !flex !flex-nowrap !items-center !justify-center !gap-0.5 md:!gap-1">
-                  <button type="button" className="teacher-box !flex !h-10 !w-12 !flex-col !items-center !justify-center !gap-0.5 !rounded-[8px] !border !border-white/20 !bg-white/10 sm:!h-14 sm:!w-16" onClick={()=>setSelected({type:"teacher"})}>
-                    <span className="teacher-icon !text-xs sm:!text-base">🚪</span>
-                    <span className="teacher-lbl !text-[0.38rem] sm:!text-[0.48rem]">Door</span>
-                  </button>
-                  {seatGroups.find((r)=>r.rowId==="top").seats.map((num)=>renderSeatButton(num))}
-                </div>
-
-                {/* Middle */}
-                <div className="room-middle !mt-2 !flex !items-start !justify-center !gap-1.5 md:!mt-4 md:!gap-4">
-                  <div className="side-col !flex !flex-col !gap-0.5 md:!gap-1">
-                    {renderSeatButton(43)}
-                    {[42,41,40].map((num)=><div key={num} className="!flex !flex-col !gap-0.5 md:!gap-1">{renderSeatButton(num)}</div>)}
-                  </div>
-                  <div className="middle-rows !flex !flex-col !gap-0.5 md:!gap-1">
-                    {/* Added spacing div to push first row down */}
-                    <div className="!h-10 sm:!h-14"></div>
-                    {["mid-1","mid-2"].map((rowId, index)=>(
-                      <div key={rowId} className={`room-row !flex !flex-nowrap !items-center !justify-center !gap-0.5 md:!gap-1 ${index === 1 ? "!mt-2 md:!mt-4" : ""}`}>
-                        {seatGroups.find((r)=>r.rowId===rowId).seats.map((num)=>renderSeatButton(num))}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Bottom row */}
-                <div className="room-row row-bottom !mt-2 !flex !flex-nowrap !items-center !justify-center !gap-0.5 md:!mt-4 md:!gap-1">
-                  {seatGroups.find((r)=>r.rowId==="bottom").seats.map((num)=>renderSeatButton(num))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="seats-stats rv !mt-4 !flex !flex-wrap !items-center !gap-2">
-          {[{n:counts.available,c:"!text-[#23e07b]",l:"Available Now"},{n:counts.reserved,c:"!text-[#f2b93b]",l:"Reserved"},{n:counts.shifting,c:"!text-[#4e9cff]",l:"Shifting Slot"}].map(({n,c,l})=>(
-            <div key={l} className="!min-w-[72px] !rounded-[12px] !border !border-white/10 !bg-white/5 !p-2.5 md:!min-w-[120px] md:!rounded-[18px] md:!p-4">
-              <div className={`!text-lg !font-black md:!text-2xl ${c}`}>{n}</div>
-              <div className="!text-[0.5rem] !text-[#a8bdd8] md:!text-[0.72rem]">{l}</div>
-            </div>
-          ))}
-          <div className="!ml-auto">
-            <a href="https://wa.me/919862285344" className="btn-primary !inline-flex !items-center !rounded-full !bg-[linear-gradient(135deg,#1db56a,#14a05e)] !px-3 !py-2 !text-[0.58rem] !font-semibold !text-white md:!px-5 md:!py-3 md:!text-[0.8rem]">Reserve on WhatsApp</a>
-          </div>
+function AnimatedVideo () {
+    return (
+    <div className="!bg-black" id="video">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-0 !py-0 md:!px-10 md:!py-20">
+        <div className="rv !w-full">
+          <h2 className="sec-title mb-2 !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8] !text-left">Animated <em> Video</em>
+          </h2>
+              <div className="!flex !w-full !justify-center">
+      <video
+        src="/videos/educafe.mp4"
+        controls
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="!w-full !rounded-[18px] !shadow-lg md:!rounded-[24px]"
+      />
+    </div>
         </div>
       </div>
-
-      {selected?(
-        <div className="seat-modal-overlay open !fixed !inset-0 !z-[1000] !grid !place-items-center !bg-black/70 !p-3" onClick={()=>setSelected(null)}>
-          <div className="seat-modal !w-full !max-w-[400px] !rounded-[18px] !border !border-white/10 !bg-[linear-gradient(180deg,rgba(9,14,26,0.98),rgba(5,8,15,0.98))] !p-4 md:!rounded-[24px] md:!p-6" onClick={(e)=>e.stopPropagation()}>
-            <button className="modal-close !float-right !grid !h-7 !w-7 !place-items-center !rounded-full !border !border-white/10 !bg-white/5 !text-sm !text-white" onClick={()=>setSelected(null)} type="button">×</button>
-            <div className="modal-seat-num !mb-2 !text-[0.82rem] !font-bold !text-white md:!text-[1rem]">
-              {selected.type==="teacher"?"Instructor Position":`Seat #${String(selected.num).padStart(2,"0")}`}
-            </div>
-            {selected.type==="teacher"?(
-              <>
-                <span className="modal-status-badge msb-shifting !text-[0.58rem]">🎓 Instructor Desk</span>
-                <div className="!mt-3 !grid !grid-cols-2 !gap-2">
-                  <div><div className="!text-[0.5rem] !text-[#7890a8]">Area</div><div className="!text-[0.65rem] !font-semibold !text-white">Front of Hall</div></div>
-                  <div><div className="!text-[0.5rem] !text-[#7890a8]">Available</div><div className="!text-[0.65rem] !font-semibold !text-white">Always</div></div>
-                </div>
-                <p className="!mt-3 !text-[0.62rem] !leading-6 !text-[#a8bdd8]">The instructor monitors study sessions, answers queries, and maintains the focused environment.</p>
-              </>
-            ):selected.state==="reserved"?(
-              <>
-                <span className="modal-status-badge msb-reserved !text-[0.58rem]">● Reserved</span>
-                <div className="!mt-3 !flex !items-center !gap-3">
-                  <div className={`modal-big-av !grid !h-10 !w-10 !place-items-center !rounded-full !text-[0.6rem] !font-bold ${selected.num%2===0?"mba-gold":"mba-blue"}`}>{selected.initials}</div>
-                  <div><div className="!text-[0.72rem] !font-bold !text-white">{selected.name}</div><div className="!text-[0.58rem] !text-[#a8bdd8]">{selected.exam}</div></div>
-                </div>
-                <div className="!mt-3 !grid !grid-cols-2 !gap-2">
-                  <div><div className="!text-[0.5rem] !text-[#7890a8]">Shift</div><div className="!text-[0.65rem] !font-semibold !text-white">{selected.shift}</div></div>
-                  <div><div className="!text-[0.5rem] !text-[#7890a8]">Status</div><div className="!text-[0.65rem] !font-semibold !text-[#f2b93b]">Active</div></div>
-                </div>
-                <a href="https://wa.me/919862285344?text=Hi%2C%20I%20want%20to%20enquire%20about%20a%20nearby%20available%20seat." className="modal-cta !mt-3 !block !rounded-full !bg-[linear-gradient(135deg,#1db56a,#14a05e)] !px-4 !py-2 !text-center !text-[0.62rem] !font-semibold !text-white">Find a Nearby Available Seat</a>
-                <div className="!mt-2 !text-center !text-[0.55rem] !text-[#7890a8]">This seat is taken. We&apos;ll find you the best available spot!</div>
-              </>
-            ):selected.state==="shifting"?(
-              <>
-                <span className="modal-status-badge msb-shifting !text-[0.58rem]">↔ Shifting Slot</span>
-                <div className="!mt-3 !flex !items-center !gap-3">
-                  <div className="modal-big-av mba-blue !grid !h-10 !w-10 !place-items-center !rounded-full !text-sm !font-bold">↔</div>
-                  <div><div className="!text-[0.72rem] !font-bold !text-white">Shifting Slot</div><div className="!text-[0.58rem] !text-[#a8bdd8]">Available for specific hours</div></div>
-                </div>
-                <div className="!mt-3 !grid !grid-cols-2 !gap-2">
-                  <div><div className="!text-[0.5rem] !text-[#7890a8]">Open During</div><div className="!text-[0.65rem] !font-semibold !text-[#5ca8ff]">{selected.shift}</div></div>
-                  <div><div className="!text-[0.5rem] !text-[#7890a8]">Type</div><div className="!text-[0.65rem] !font-semibold !text-white">Shift Seat</div></div>
-                </div>
-                <a href={`https://wa.me/919862285344?text=Hi%2C%20I%20want%20to%20reserve%20Seat%20%23${selected.num}%20(Shifting%20-%20${encodeURIComponent(selected.shift)})%20at%20EduCafe.`} className="modal-cta !mt-3 !block !rounded-full !bg-[linear-gradient(135deg,#1db56a,#14a05e)] !px-4 !py-2 !text-center !text-[0.62rem] !font-semibold !text-white">Reserve This Slot on WhatsApp</a>
-                <div className="!mt-2 !text-center !text-[0.55rem] !text-[#7890a8]">Available {selected.shift} - secure it before someone else does!</div>
-              </>
-            ):(
-              <>
-                <span className="modal-status-badge msb-available !text-[0.58rem]">● Available</span>
-                <div className="!mt-3 !flex !items-center !gap-3">
-                  <div className="modal-big-av mba-green !grid !h-10 !w-10 !place-items-center !rounded-full !text-sm !font-bold">✓</div>
-                  <div><div className="!text-[0.72rem] !font-bold !text-white">This seat is yours.</div><div className="!text-[0.58rem] !text-[#a8bdd8]">Ready for a serious aspirant</div></div>
-                </div>
-                <div className="!mt-3 !grid !grid-cols-2 !gap-2">
-                  <div><div className="!text-[0.5rem] !text-[#7890a8]">Availability</div><div className="!text-[0.65rem] !font-semibold !text-[#23e07b]">Full Day</div></div>
-                  <div><div className="!text-[0.5rem] !text-[#7890a8]">Status</div><div className="!text-[0.65rem] !font-semibold !text-[#23e07b]">Open</div></div>
-                </div>
-                <a href={`https://wa.me/919862285344?text=Hi%2C%20I%20want%20to%20reserve%20Seat%20%23${selected.num}%20at%20EduCafe.`} className="modal-cta !mt-3 !block !rounded-full !bg-[linear-gradient(135deg,#1db56a,#14a05e)] !px-4 !py-2 !text-center !text-[0.62rem] !font-semibold !text-white">Reserve Seat #{selected.num} on WhatsApp</a>
-                <div className="!mt-2 !text-center !text-[0.55rem] !text-[#7890a8]">We&apos;ll confirm your booking within minutes.</div>
-              </>
-            )}
-          </div>
-        </div>
-      ):null}
     </div>
   );
 }
+
+
 
 // ─── AchieversSection ─────────────────────────────────────────────────────
 function AchieversSection() {
@@ -703,10 +633,9 @@ function AchieversSection() {
   },[loadingAchievers,achieversData]);
 
   return (
-    <div className="ach-wrap !bg-[#05080f]" id="achievers">
-      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-12 md:!px-10 md:!py-20">
+    <div className="ach-wrap !bg-black" id="achievers">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-5 md:!px-10 md:!py-20">
         <div className="rv !mx-auto !max-w-[620px] !text-center">
-          <div className="sec-eyebrow !mb-2 !text-[0.5rem] !font-bold !uppercase !tracking-[0.14em] !text-[#0fdbc8] md:!text-[0.62rem]">Real Results</div>
           <h2 className="sec-title !text-center !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
             Students who walked<br />in - and <em>walked out winning</em>
           </h2>
@@ -730,7 +659,7 @@ function AchieversSection() {
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="!absolute !inset-0 !h-full !w-full !object-cover"
+                  className="!absolute !inset-0 !h-full !w-full !object-cover scale-110 !transition-transform duration-300 hover:scale-120"
                 />
               </div>
               <div className="!flex !flex-col !gap-0.5">
@@ -757,31 +686,46 @@ function AchieversSection() {
 // ─── Contact ──────────────────────────────────────────────────────────────
 function ContactSection() {
   return (
-    <div className="contact-wrap !bg-[#0c1325]" id="contact">
-      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-12 md:!px-10 md:!py-20">
+    <div className="contact-wrap !bg-black" id="contact">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6  md:!px-10 md:!py-20">
         <div className="contact-grid !grid !grid-cols-1 !gap-6 lg:!grid-cols-2">
           <div className="rv !space-y-3">
-            <div className="sec-eyebrow !mb-2 !text-[0.5rem] !font-bold !uppercase !tracking-[0.14em] !text-[#0fdbc8] md:!text-[0.62rem]">Get in Touch</div>
             <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
               Ready to start?<br /><em>Let&apos;s talk.</em>
             </h2>
             <p className="sec-desc !max-w-[500px] !text-[0.65rem] !leading-6 !text-[#a8bdd8] md:!text-[0.9rem] md:!leading-7">
               Whether you have a question, want to see the space, or are ready to join - reach out. We respond fast.
             </p>
-            {[{l:"Primary Number",v:"+91 98622 85344"},{l:"Alternate Number",v:"+91 70055 49898"}].map(({l,v})=>(
-              <div key={l} className="!flex !items-center !gap-3 !rounded-[12px] !border !border-white/10 !bg-white/5 !p-3 md:!rounded-[18px] md:!p-4">
-                <div className="!text-base">📞</div>
-                <div>
-                  <div className="!text-[0.48rem] !font-semibold !uppercase !tracking-[0.08em] !text-[#7890a8] md:!text-[0.68rem]">{l}</div>
-                  <div className="!text-[0.68rem] !font-semibold !text-white md:!text-sm">{v}</div>
-                </div>
-              </div>
-            ))}
-            <a href="https://wa.me/919862285344" className="wa-btn !inline-flex !items-center !rounded-full !bg-[linear-gradient(135deg,#1db56a,#14a05e)] !px-4 !py-2.5 !text-[0.65rem] !font-semibold !text-white md:!px-5 md:!py-3 md:!text-[0.85rem]">
-              Message Us on WhatsApp
-            </a>
+   <div className="!flex !gap-2 !flex-row !flex-wrap">
+  {[{ l: "Primary Number", v: "+91 98622 85344" }, { l: "Alternate Number", v: "+91 70055 49898" }].map(({ l, v }) => (
+    <div
+      key={l}
+      className="!flex !min-w-[160px] !flex-1 !items-center !gap-3 !rounded-[12px] !border !border-white/10 !bg-white/5 !p-3 md:!rounded-[18px] md:!p-4"
+    >
+      <div className="!text-base">📞</div>
+      <div>
+        <div className="!text-[0.48rem] !font-semibold !uppercase !tracking-[0.08em] !text-[#7890a8] md:!text-[0.68rem]">
+          {l}
+        </div>
+        <div className="!text-[0.68rem] !font-semibold !text-white md:!text-sm">
+          {v}
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+
           </div>
-          <div className="rv rv-delay-1">
+
+        </div>
+      </div>
+    </div>
+  );
+}
+function WhyChoose () {
+  return (
+              <div className="rv rv-delay-1">
             <div className="why-box !rounded-[18px] !border !border-white/10 !bg-[rgba(255,255,255,0.03)] !p-3 md:!p-5">
               <h4 className="!mb-3 !text-[0.72rem] !font-semibold !text-white md:!text-[0.95rem]">Why students choose EduCafe</h4>
               <div className="!space-y-2">
@@ -797,19 +741,63 @@ function ContactSection() {
               </div>
             </div>
           </div>
+  )
+}
+
+
+// ─── Footer ───────────────────────────────────────────────────────────────
+function UpcomingProjectsSection() {
+  return (
+    <div className="projects-wrap !bg-black" id="projects">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6 md:!px-10 md:!py-20">
+        <div className="rv !mb-6 !max-w-[620px]">
+
+          <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
+            Upcoming <em>Projects</em>
+          </h2>
+
+        </div>
+
+        <div className="!grid !gap-4 md:!grid-cols-2 h-full xl:!grid-cols-3">
+          {upcomingProjects.map((item) => (
+            <article
+              key={item.title}
+              className="rv !overflow-hidden h-full !rounded-[18px] !border !border-white/10 "
+            >
+              <div className="!relative h-150 !w-full  ">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                  className="!object-cover"
+                />
+                <div className="!absolute !left-4 !top-4 !inline-flex !rounded-full !border !border-[#23e07b]/20 !bg-black/45 !px-3 !py-1 !text-[0.52rem] !font-semibold !uppercase !tracking-[0.1em] !text-[#bdf4dc]">
+                  Under Development
+                </div>
+              </div>
+
+              <div className="!p-4 md:!p-5">
+                <h3 className="!text-[0.78rem] !font-semibold !leading-6 !text-white md:!text-[0.98rem]">
+                  {item.title}
+                </h3>
+                <p className="!mt-2 !text-[0.62rem] !leading-6 !text-[#a8bdd8] md:!text-[0.78rem] md:!leading-7">
+                  {item.body}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </div>
   );
 }
 
-// ─── Footer ───────────────────────────────────────────────────────────────
 function Footer() {
   return (
-    <footer className="site-footer !flex !items-center !justify-between !gap-3 !border-t !border-white/10 !px-3 !py-4 md:!px-6 md:!py-6">
-      <span className="foot-logo !text-[0.72rem] !font-semibold !text-white md:!text-[0.95rem]">EduCafe</span>
-      <span className="foot-credit !text-[0.55rem] !text-[#a8bdd8] md:!text-[0.78rem]">
-        Made with <span className="text-red-400">♥</span> by <a href="#">Nextjourney</a> · Assam, India · 2026
+    <footer className="site-footer !flex !items-center !justify-center !gap-3 !border-t !border-white/10 !px-3 !py-4 md:!px-6 md:!py-6">
+      <span className="foot-credit !text-[0.8rem] !text-[#a8bdd8] md:!text-[0.1rem]">
+        Made with <span className="text-red-400">♥</span> by <a className="font-bold" href="https://flowpandas.com/">FlowPandas</a> 
       </span>
     </footer>
   );
@@ -844,25 +832,43 @@ export default function Home() {
   },[]);
 
   return (
-    <main className="home-shell relative z-20 overflow-x-hidden bg-[#05080f] text-[#d8e8f8]">
-      <div className="ambient amb-1 pointer-events-none absolute left-[-10%] top-[-10%] h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,rgba(29,181,106,0.18),transparent_70%)] blur-3xl"/>
-      <div className="ambient amb-2 pointer-events-none absolute right-[-10%] top-[18rem] h-[22rem] w-[22rem] rounded-full bg-[radial-gradient(circle,rgba(242,185,59,0.12),transparent_70%)] blur-3xl"/>
-      <div className="ambient amb-3 pointer-events-none absolute left-[20%] top-[38rem] h-[18rem] w-[18rem] rounded-full bg-[radial-gradient(circle,rgba(78,156,255,0.1),transparent_70%)] blur-3xl"/>
+    <main className=" relative z-20 overflow-x-hidden bg-black text-[#d8e8f8]">
       <Navbar/>
       <Hero/>
-      <Ticker/>
+                          <Ticker/>
+
+            <HomeSeatMap seats={seatItems} />
+
+      <div className='px-2'>   
+
+      <AnimatedVideo/>
+        </div>
+        <WhyChoose/>
+
+
+
+ 
+
+            <ExamTable/>
+
       <GalleryShowcase
         images={galleryItems.length>0
           ?galleryItems.map((item)=>({src:item.image,label:item.label,width:item.width,height:item.height,aspectRatio:item.aspectRatio}))
           :galleryImages}
       />
+      <CabinsSection/>
       <div className="divider"/>
       <NewsSection/>
-      <ExamTable/>
-      <HomeSeatMap seats={seatItems} />
       <AchieversSection/>
+      <UpcomingProjectsSection/>
       <ContactSection/>
       <Footer/>
+
+      <div className="flex fixed bottom-4 right-4  z-10 ">
+            <a href="https://wa.me/919862285344" className=" !inline-flex !items-center !rounded-full !bg-[linear-gradient(135deg,#1db56a,#14a05e)] !p-2 !text-[0.65rem] !font-semibold !text-white md:!px-5 md:!py-3 md:!text-[0.85rem]">
+              <MessageCircle/>
+            </a>
+</div>
     </main>
   );
 }

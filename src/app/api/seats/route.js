@@ -4,10 +4,14 @@ import Seat from "@/models/Seat";
 import { seatNumbers } from "@/data/seatNumbers";
 
 function normalizeSeat(doc) {
+  const avatarId = Number(doc.avatarId);
+
   return {
     seatNumber: Number(doc.seatNumber),
     state: doc.state || "available",
     name: doc.name || "",
+    gender: doc.gender || "",
+    avatarId: Number.isFinite(avatarId) && avatarId > 0 ? avatarId : null,
     exam: doc.exam || "",
     shift: doc.shift || "",
   };
@@ -24,6 +28,8 @@ export async function GET() {
         seatNumber,
         state: "available",
         name: "",
+        gender: "",
+        avatarId: null,
         exam: "",
         shift: "",
       }
@@ -42,6 +48,9 @@ export async function PUT(req) {
     const body = await req.json();
     const seatNumber = Number(body.seatNumber);
     const state = body.state || "available";
+    const gender = ["male", "female"].includes(body.gender) ? body.gender : "";
+    const parsedAvatarId = Number(body.avatarId);
+    const avatarId = Number.isFinite(parsedAvatarId) && parsedAvatarId > 0 ? parsedAvatarId : null;
 
     if (!seatNumber || !seatNumbers.includes(seatNumber)) {
       return NextResponse.json({ error: "Invalid seatNumber" }, { status: 400 });
@@ -55,6 +64,8 @@ export async function PUT(req) {
       seatNumber,
       state,
       name: state === "reserved" ? (body.name || "").trim() : "",
+      gender,
+      avatarId,
       exam: state === "reserved" ? (body.exam || "").trim() : "",
       shift: state === "shifting" ? (body.shift || "").trim() : state === "reserved" ? (body.shift || "").trim() : "",
     };
@@ -62,7 +73,7 @@ export async function PUT(req) {
     const seat = await Seat.findOneAndUpdate(
       { seatNumber },
       payload,
-      { new: true, upsert: true, setDefaultsOnInsert: true }
+      { new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true }
     );
 
     return NextResponse.json(normalizeSeat(seat));

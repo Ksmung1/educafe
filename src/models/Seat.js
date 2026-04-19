@@ -18,6 +18,16 @@ const SeatSchema = new mongoose.Schema(
       default: "",
       trim: true,
     },
+    gender: {
+      type: String,
+      enum: ["male", "female", ""],
+      default: "",
+      trim: true,
+    },
+    avatarId: {
+      type: Number,
+      default: null,
+    },
     exam: {
       type: String,
       default: "",
@@ -32,4 +42,8 @@ const SeatSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.models.Seat || mongoose.model("Seat", SeatSchema);
+if (mongoose.models.Seat) {
+  delete mongoose.models.Seat;
+}
+
+export default mongoose.model("Seat", SeatSchema);
