@@ -568,30 +568,34 @@ function ExamTable() {
 
 
 
-function AnimatedVideo () {
-    return (
+function AnimatedVideo() {
+  return (
     <div className="!bg-black" id="video">
       <div className="section-inner !mx-auto !max-w-[1200px] !px-0 !py-0 md:!px-10 md:!py-20">
         <div className="rv !w-full">
-          <h2 className="sec-title mb-2 !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8] !text-left">Animated <em> Video</em>
+          <h2 className="sec-title mb-2 !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8] !text-left">
+            Animated <em>Video</em>
           </h2>
-              <div className="!flex !w-full !justify-center">
-      <video
-        src="/videos/educafe.mp4"
-        controls
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="!w-full !rounded-[18px] !shadow-lg md:!rounded-[24px]"
-      />
-    </div>
+
+          <div className="!flex !w-full !justify-center">
+            <video
+              src="/videos/new.mp4"
+              controls
+              autoPlay
+              muted
+              loop
+              playsInline
+              controlsList="nodownload noremoteplayback"
+              disablePictureInPicture
+              onContextMenu={(e) => e.preventDefault()}
+              className="!w-full !rounded-[18px] !shadow-lg md:!rounded-[24px]"
+            />
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
 
 
 // ─── AchieversSection ─────────────────────────────────────────────────────
