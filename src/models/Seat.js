@@ -1,25 +1,35 @@
 import mongoose from "mongoose";
 
-const SlotSchema = new mongoose.Schema({
-  slotId: String, // SLOT_1, SLOT_2, etc.
-  booked: {
-    type: Boolean,
-    default: false,
+const SeatSchema = new mongoose.Schema(
+  {
+    seatNumber: {
+      type: Number,
+      required: true,
+      unique: true,
+      index: true,
+    },
+    state: {
+      type: String,
+      enum: ["available", "reserved", "shifting"],
+      default: "available",
+    },
+    name: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    exam: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+    shift: {
+      type: String,
+      default: "",
+      trim: true,
+    },
   },
-});
+  { timestamps: true }
+);
 
-const SeatSchema = new mongoose.Schema({
-  seatNumber: Number,
-
-  // Full-day lock
-  reserved: {
-    type: Boolean,
-    default: false,
-  },
-
-  // Slot-based bookings
-  slots: [SlotSchema],
-});
-
-export default mongoose.models.Seat ||
-  mongoose.model("Seat", SeatSchema);
+export default mongoose.models.Seat || mongoose.model("Seat", SeatSchema);

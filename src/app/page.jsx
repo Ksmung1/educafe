@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import heroImage from "@/assets/hero.png";
-import logo from "@/assets/logo.png";
 import educafe1 from "@/assets/educafe1.png";
 import educafe2 from "@/assets/educafe2.png";
 import educafe3 from "@/assets/educafe3.png";
@@ -17,7 +16,8 @@ import educafe9 from "@/assets/educafe9.png";
 import educafe10 from "@/assets/educafe10.png";
 import educafe21 from "@/assets/educafe21.png";
 import { chronologies } from "@/data/chronologies";
-import { seatLayout } from "@/data/seatLayout";
+import HomeSeatMap from "@/app/components/HomeSeatMap";
+import Navbar from "@/app/components/Navbar";
 
 const heroStats = [
   { value: "20+", label: "Active Students" },
@@ -114,33 +114,14 @@ const whyChoose = [
   { icon: "📚", title: "Every stream, one roof", text: "UPSC. Banking. Medical. Engineering. SSC. It doesn&apos;t matter which path you&apos;re on - we have space for you here." },
 ];
 
-const seatData = {
-  1: { state: "reserved", name: "Arjun S.", exam: "UPSC CSE 2026", shift: "Full Day", initials: "AS" },
-  2: { state: "shifting", shift: "Evening Only" },
-  3: { state: "reserved", name: "Priya B.", exam: "NEET UG 2026", shift: "Morning", initials: "PB" },
-  5: { state: "reserved", name: "Rohan D.", exam: "JEE Advanced", shift: "Full Day", initials: "RD" },
-  7: { state: "reserved", name: "Sneha P.", exam: "SBI PO 2026", shift: "Full Day", initials: "SP" },
-  8: { state: "shifting", shift: "Morning Only" },
-  10: { state: "reserved", name: "Kiran L.", exam: "UPSC Prelims", shift: "Full Day", initials: "KL" },
-  12: { state: "shifting", shift: "Evening Only" },
-  14: { state: "reserved", name: "Meera G.", exam: "NEET PG", shift: "Full Day", initials: "MG" },
-  18: { state: "reserved", name: "Rahul K.", exam: "SSC CGL", shift: "Morning", initials: "RK" },
-  20: { state: "shifting", shift: "Morning Only" },
-  22: { state: "reserved", name: "Ananya S.", exam: "IBPS PO", shift: "Full Day", initials: "AS" },
-  25: { state: "reserved", name: "Dev M.", exam: "RBI Grade B", shift: "Full Day", initials: "DM" },
-  27: { state: "shifting", shift: "Evening Only" },
-  28: { state: "reserved", name: "Nisha T.", exam: "SSC CHSL", shift: "Full Day", initials: "NT" },
-  32: { state: "reserved", name: "Vivek R.", exam: "UPSC CAPF", shift: "Morning", initials: "VR" },
-  33: { state: "shifting", shift: "Morning Only" },
-  36: { state: "reserved", name: "Pooja A.", exam: "LIC AAO", shift: "Evening", initials: "PA" },
-  38: { state: "shifting", shift: "Evening Only" },
-  40: { state: "shifting", shift: "Morning Only" },
-  41: { state: "shifting", shift: "Evening Only" },
-  42: { state: "reserved", name: "Riya C.", exam: "JEE Main", shift: "Full Day", initials: "RC" },
-};
+const seatData = {};
 
-function getSeatStatus(num) {
-  return seatData[num] ? seatData[num].state : "available";
+function getSeatRecord(seatMap, num) {
+  return seatMap[num] || { seatNumber: num, state: "available", name: "", exam: "", shift: "" };
+}
+
+function getSeatStatus(seatMap, num) {
+  return getSeatRecord(seatMap, num).state;
 }
 
 function getSeatClasses(status) {
@@ -158,27 +139,6 @@ function ratioGroup(aspectRatio) {
   return "balanced";
 }
 
-// ─── Nav ──────────────────────────────────────────────────────────────────
-function Nav() {
-  return (
-    <nav id="nav" className="site-nav !fixed !left-1/2 !top-0 !z-[900] !flex !w-[min(1200px,calc(100%-0.5rem))] !-translate-x-1/2 !items-center !justify-between !rounded-b-[14px] !rounded-t-none !border !border-white/10 !border-t-0 !bg-[rgba(5,8,15,0.9)] !px-3 !py-2 !backdrop-blur-xl md:!px-6 md:!py-3">
-      <a className="logo-mark !flex !items-center !gap-2" href="#">
-        <div className="logo-icon !relative !h-8 !w-8 !overflow-hidden !rounded-full !border !border-white/10 !bg-white md:!h-10 md:!w-10">
-          <Image src={logo} alt="EduCafe logo" fill sizes="40px" className="!h-full !w-full !object-cover !object-center" priority />
-        </div>
-        <span className="logo-text !text-[0.75rem] !font-semibold !tracking-[0.08em] !text-white md:!text-[0.95rem]">EduCafe</span>
-      </a>
-      <ul className="nav-links !hidden !items-center !gap-5 lg:!flex">
-        {["gallery","news","exams","seats","achievers","contact"].map((id) => (
-          <li key={id}><a href={`#${id}`} className="!text-[0.7rem]">{id.charAt(0).toUpperCase()+id.slice(1)}</a></li>
-        ))}
-      </ul>
-      <a href="https://wa.me/919862285344" className="nav-cta !inline-flex !items-center !rounded-full !border !border-white/10 !bg-white/5 !px-2.5 !py-1.5 !text-[0.6rem] !font-semibold !text-white hover:!bg-white/10 md:!px-4 md:!py-2 md:!text-[0.78rem]">
-        Join Today →
-      </a>
-    </nav>
-  );
-}
 
 // ─── Hero ─────────────────────────────────────────────────────────────────
 function Hero() {
@@ -550,8 +510,8 @@ function SeatMap() {
   },[]);
 
   const seatGroups = seatLayout;
-  const SeatBtn = ({num}) => (
-    <button type="button" className={getSeatClasses(getSeatStatus(num))} onClick={()=>setSelected({num,...seatData[num]})}>
+  const renderSeatButton = (num) => (
+    <button key={num} type="button" className={getSeatClasses(getSeatStatus(num))} onClick={()=>setSelected({num,...seatData[num]})}>
       {seatData[num]?.state==="reserved"?(
         <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-[#f2b93b] shadow-[0_0_0_2px_rgba(242,185,59,0.18)]" />
       ):seatData[num]?.state==="shifting"?(
@@ -596,21 +556,21 @@ function SeatMap() {
                     <span className="teacher-icon !text-xs sm:!text-base">🚪</span>
                     <span className="teacher-lbl !text-[0.38rem] sm:!text-[0.48rem]">Door</span>
                   </button>
-                  {seatGroups.find((r)=>r.rowId==="top").seats.map((num)=><SeatBtn key={num} num={num}/>)}
+                  {seatGroups.find((r)=>r.rowId==="top").seats.map((num)=>renderSeatButton(num))}
                 </div>
 
                 {/* Middle */}
                 <div className="room-middle !mt-2 !flex !items-start !justify-center !gap-1.5 md:!mt-4 md:!gap-4">
                   <div className="side-col !flex !flex-col !gap-0.5 md:!gap-1">
-                    <SeatBtn num={43} />
-                    {[42,41,40].map((num)=><div key={num} className="!flex !flex-col !gap-0.5 md:!gap-1"><SeatBtn num={num}/></div>)}
+                    {renderSeatButton(43)}
+                    {[42,41,40].map((num)=><div key={num} className="!flex !flex-col !gap-0.5 md:!gap-1">{renderSeatButton(num)}</div>)}
                   </div>
                   <div className="middle-rows !flex !flex-col !gap-0.5 md:!gap-1">
                     {/* Added spacing div to push first row down */}
                     <div className="!h-10 sm:!h-14"></div>
                     {["mid-1","mid-2"].map((rowId, index)=>(
                       <div key={rowId} className={`room-row !flex !flex-nowrap !items-center !justify-center !gap-0.5 md:!gap-1 ${index === 1 ? "!mt-2 md:!mt-4" : ""}`}>
-                        {seatGroups.find((r)=>r.rowId===rowId).seats.map((num)=><SeatBtn key={num} num={num}/>)}
+                        {seatGroups.find((r)=>r.rowId===rowId).seats.map((num)=>renderSeatButton(num))}
                       </div>
                     ))}
                   </div>
@@ -618,7 +578,7 @@ function SeatMap() {
 
                 {/* Bottom row */}
                 <div className="room-row row-bottom !mt-2 !flex !flex-nowrap !items-center !justify-center !gap-0.5 md:!mt-4 md:!gap-1">
-                  {seatGroups.find((r)=>r.rowId==="bottom").seats.map((num)=><SeatBtn key={num} num={num}/>)}
+                  {seatGroups.find((r)=>r.rowId==="bottom").seats.map((num)=>renderSeatButton(num))}
                 </div>
               </div>
             </div>
@@ -858,6 +818,7 @@ function Footer() {
 // ─── Home ─────────────────────────────────────────────────────────────────
 export default function Home() {
   const [galleryItems, setGalleryItems] = useState([]);
+  const [seatItems, setSeatItems] = useState([]);
 
   useEffect(()=>{
     const nav=document.getElementById("nav");
@@ -873,7 +834,12 @@ export default function Home() {
       try{const res=await fetch("/api/gallery",{cache:"no-store"});const data=await res.json();if(Array.isArray(data))setGalleryItems(data);}
       catch{setGalleryItems([]);}
     };
+    const loadSeats=async()=>{
+      try{const res=await fetch("/api/seats",{cache:"no-store"});const data=await res.json();if(Array.isArray(data))setSeatItems(data);}
+      catch{setSeatItems([]);}
+    };
     loadGallery();
+    loadSeats();
     return ()=>{observer.disconnect();window.removeEventListener("scroll",updateLift);};
   },[]);
 
@@ -882,7 +848,7 @@ export default function Home() {
       <div className="ambient amb-1 pointer-events-none absolute left-[-10%] top-[-10%] h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,rgba(29,181,106,0.18),transparent_70%)] blur-3xl"/>
       <div className="ambient amb-2 pointer-events-none absolute right-[-10%] top-[18rem] h-[22rem] w-[22rem] rounded-full bg-[radial-gradient(circle,rgba(242,185,59,0.12),transparent_70%)] blur-3xl"/>
       <div className="ambient amb-3 pointer-events-none absolute left-[20%] top-[38rem] h-[18rem] w-[18rem] rounded-full bg-[radial-gradient(circle,rgba(78,156,255,0.1),transparent_70%)] blur-3xl"/>
-      <Nav/>
+      <Navbar/>
       <Hero/>
       <Ticker/>
       <GalleryShowcase
@@ -893,7 +859,7 @@ export default function Home() {
       <div className="divider"/>
       <NewsSection/>
       <ExamTable/>
-      <SeatMap/>
+      <HomeSeatMap seats={seatItems} />
       <AchieversSection/>
       <ContactSection/>
       <Footer/>
