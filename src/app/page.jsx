@@ -725,16 +725,16 @@ function ContactSection() {
 }
 function WhyChoose () {
   return (
-              <div className="rv rv-delay-1">
+              <div className="rv rv-delay-1 mt-5">
             <div className="why-box !rounded-[18px] !border !border-white/10 !bg-[rgba(255,255,255,0.03)] !p-3 md:!p-5">
-              <h4 className="!mb-3 !text-[0.72rem] !font-semibold !text-white md:!text-[0.95rem]">Why students choose EduCafe</h4>
+              <h4 className="!mb-3 !text-[1rem] !font-semibold !text-white md:!text-[0.95rem]">Why students choose EduCafe</h4>
               <div className="!space-y-2">
                 {whyChoose.map((item)=>(
                   <div key={item.title} className="!flex !items-start !gap-2.5 !rounded-[10px] !border !border-white/10 !bg-white/5 !p-2.5 md:!rounded-[16px] md:!p-4">
-                    <div className="!grid !h-8 !w-8 !shrink-0 !place-items-center !rounded-full !bg-[#10192b] !text-sm md:!h-11 md:!w-11 md:!text-lg">{item.icon}</div>
+                    <div className="!grid !h-8 !w-8 !shrink-0 !place-items-center !rounded-full !bg-[#10192b] !text-xl md:!h-11 md:!w-11 md:!text-lg">{item.icon}</div>
                     <div>
-                      <div className="!text-[0.6rem] !font-semibold !text-white md:!text-[0.8rem]">{item.title}</div>
-                      <div className="!mt-0.5 !text-[0.53rem] !leading-5 !text-[#a8bdd8] md:!text-[0.72rem] md:!leading-6">{item.text}</div>
+                      <div className="!text-[0.7rem] !font-semibold !text-white md:!text-[0.8rem]">{item.title}</div>
+                      <div className="!mt-0.5 !text-[0.64rem] !leading-5 !text-gray-200 md:!text-[0.72rem] md:!leading-6">{item.text}</div>
                     </div>
                   </div>
                 ))}
