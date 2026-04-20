@@ -136,10 +136,9 @@ img {
 
 .hero {
   display: grid;
-  margin-top:80;
+  margin-top:70;
   grid-template-columns: 1fr;
   align-items: stretch;
-  padding-top: 4.5rem;
   position: relative;
   z-index: 2;
   overflow: hidden;
@@ -150,6 +149,7 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
 }
 
@@ -235,8 +235,7 @@ img {
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: #d8e8f8;
-  margin-bottom: 1.75rem;
-}
+  text-align: center;}
 
 .hero-heading em {
   font-style: italic;
@@ -250,8 +249,9 @@ img {
   line-height: 1.9;
   color: #a8bdd8;
   font-weight: 300;
-  margin-bottom: 2.5rem;
   max-width: 460px;
+  margin-top: 10px;
+  text-align: center;
 }
 
 .hero-body strong {

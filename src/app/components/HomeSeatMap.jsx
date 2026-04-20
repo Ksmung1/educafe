@@ -275,8 +275,7 @@ export default function HomeSeatMap({ seats }) {
       <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6 md:!px-10 md:!py-20">
         <div className="seats-header rv !mb-0 !flex !flex-col !items-start !justify-between !gap-4 lg:!flex-row lg:!items-end">
           <div>
-            <div className="sec-eyebrow !mb-0 !text-[0.5rem] !font-bold !uppercase !tracking-[0.14em] md:!text-[0.62rem]">Live Floor Plan</div>
-            <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">Reserve <em>your seat.</em></h2>
+            <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">Choose your<em> Best Seat.</em></h2>
             <p className="sec-desc !max-w-[420px] !text-[0.45rem] !leading-6 !text-[#a8bdd8] md:!text-[0.92rem] md:!leading-7">Click any seat to see its status. Green seats are open - tap one to claim your spot via WhatsApp instantly.</p>
           </div>
           <div className="seats-legend !grid !grid-cols-3 !gap-1.5 sm:!grid-cols-3">

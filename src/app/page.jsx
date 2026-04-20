@@ -112,12 +112,12 @@ function ratioGroup(aspectRatio) {
 }
 function Quote() {
   return (
-    <div className="relative mx-4 pb-10 px-3 max-w-[560px] ">
+    <div className="relative mt-3 mx-4 pb-10 px-3 max-w-[560px] ">
 
 
       {/* Quote text */}
       <p className="relative m-0 font-serif text-[12px] italic underline font-normal text-green-400 leading-[1.8] text-center tracking-[0.02em]">
-        "The time to prepare for tomorrow is today"
+        "The best time to prepare for tomorrow is today"
       </p>
     </div>
   )
@@ -125,51 +125,65 @@ function Quote() {
 // ─── Hero ─────────────────────────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="hero !grid !w-full !items-center !gap-1 !pt-0 !pb-0 !mb-0 md:!px-0 md:!pt-20">
+    <section className="hero  !grid !w-full !items-center !gap-1 !pt-0 !pb-0 !mb-0 md:!px-0 md:!pt-20">
       <div className="!absolute !inset-0 !bg-black/10" />
-      <div className="tag !mb-0 !ml-3 !inline-flex !items-center !gap-1.5 !rounded-full !border !border-white/10 !bg-white/5 !px-2.5 !py-1.5 !text-[0.55rem] !font-semibold !tracking-[0.1em] !text-[#a8bdd8] md:!ml-12 lg:!ml-20">
+      <div className="tag !mb-0 !ml-3 !inline-flex  !gap-1.5 !rounded-full !border !border-white/10 !bg-white/5 !px-2.5 !py-1.5 !text-[0.55rem] !font-semibold !tracking-[0.1em] !text-[#a8bdd8] md:!ml-12 lg:!ml-20">
         <span className="tag-pulse" />
         Dedicated Study Hub
       </div>  
-      <div className="hero-left rv !relative !overflow-hidden !px-3 pt-1 !pb-4 !bg-[url('/images/bg.png')] !bg-cover !bg-no-repeat !bg-[80%_center] md:!px-12 lg:!px-20">
-        <h1 className="hero-heading !mb-4 !font-sans !font-semibold !text-[24px] !leading-[1.05] !tracking-[-0.02em] !text-[#d8e8f8]">
-          The right environment<br />doesn’t just help you study.<br />It helps you <em>become consistent.</em>
-        </h1>
-        <p className="hero-body !mb-0 !max-w-[460px] !text-[0.72rem] !font-light !leading-[1.8] !text-gray-100 md:!text-[1rem]">
-          Built for serious aspirants who want to make every hour count.
-        </p>
-<div className="!mt-5 !flex !flex-wrap !gap-3 md:!mt-8">
-  <a
-    href="#seats"
-    className="group !relative !inline-flex !items-center !justify-center !overflow-visible !rounded-full !px-0 !py-0 !text-[0.9rem] !font-semibold !text-[#e8fff1] !transition-all !duration-300 hover:!scale-[1.03]"
-  >
+      <div className="p-2 !bg-[url('/images/bg.png')] !bg-cover !bg-no-repeat !bg-[80%_center]">
+      <div className="!relative max-w-[250px] mx-auto !overflow-hidden !px-3  md:!px-12 lg:!px-20">
+        {/* Glassmorphism container for hero-left content */}
+        <div 
+          className="hero-left rv py-4 px-4"
+          style={{
+            background: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(0.5px)',
+            WebkitBackdropFilter: 'blur(5px)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            borderRadius: '8px',
+          }}
+        >
+          <h1 className="hero-heading  !font-sans !font-semibold !text-[24px] !leading-[1.05] !tracking-[-0.02em] !text-[#d8e8f8]">
+            The right <br /> <em>environment</em> <br />can  work <em>wonders.</em>
+          </h1>
+          <p className="hero-body !mb-0 !max-w-[460px] !text-[0.72rem] !font-light !leading-[1.8] !text-gray-100 md:!text-[1rem]">
+  Your next exam deserves  a space <br /> built for focus and consistency.
+          </p>
 
-    {/* Outer glow */}
-    <span className="!absolute !inset-0 !rounded-full [box-shadow:0_0_18px_4px_rgba(50,255,140,0.18),0_0_40px_8px_rgba(50,255,140,0.10)]" />
 
-    {/* Inner pill */}
-    <span className="!relative !z-10 !rounded-full !border !border-[rgba(120,255,180,0.38)] !bg-[linear-gradient(180deg,rgba(12,35,20,0.95),rgba(7,20,13,1))] !px-3.5 !py-[8px] [box-shadow:0_0_10px_rgba(80,255,170,0.45),0_0_24px_rgba(80,255,170,0.25),inset_0_0_10px_rgba(80,255,170,0.12)]">
-      Reserve Your Seat
-    </span>
-  </a>
-</div>
-    <p className="hero-body mt-2 !mb-0 !max-w-[460px] !text-[0.68rem] !font-light !leading-[1.8] !text-gray-200 md:!text-[1rem]">
-          Built for serious aspirants who want to make every hour count.
-        </p>
-        <div className="hero-proof !mt-6 !flex !gap-5 !border-t !border-white/10 !pt-5 md:!mt-10 md:!gap-8 md:!pt-8">
-          {heroStats.map((item) => (
-            <div key={item.label}>
-              <div className="proof-num !font-['Playfair_Display'] !text-[1rem] !font-black !leading-none !text-white md:!text-[2rem]">{item.value}</div>
-              <div className="proof-lbl !mt-1 !text-[0.4rem] !font-medium !text-[#7890a8] md:!text-[0.68rem]">{item.label}</div>
-            </div>
-          ))}
+          <div className="hero-proof !mt-1 mb-3 !flex items-center !gap-5 !border-t !border-white/10 !pt-5 md:!mt-10 md:!gap-8 md:!pt-8">
+            {heroStats.map((item) => (
+              <div key={item.label}>
+                <div className="proof-num !font-['Playfair_Display'] !text-[1rem] !font-black !leading-none !text-white md:!text-[2rem]">{item.value}</div>
+                <div className="proof-lbl !mt-1 !text-[0.4rem] !font-medium !text-gray-200 md:!text-[0.68rem]">{item.label}</div>
+              </div>
+            ))}
+
+          </div>
+
+          <div className=" !flex !flex-wrap !gap-3  md:!mt-2">
+            <a
+              href="#seats"
+              className="group !relative !inline-flex !items-center !justify-center !overflow-visible !rounded-full !px-0 !py-0 !text-[0.9rem] !font-semibold !text-[#e8fff1] !transition-all !duration-300 hover:!scale-[1.03]"
+            >
+
+              {/* Outer glow */}
+              <span className="!absolute !inset-0 !rounded-full [box-shadow:0_0_18px_4px_rgba(50,255,140,0.18),0_0_40px_8px_rgba(50,255,140,0.10)]" />
+
+              {/* Inner pill */}
+              <span className="!relative italic !z-10 !rounded-full !border !border-[rgba(120,255,180,0.38)] !bg-green-500/95 !px-3.5 !py-[8px] [box-shadow:0_0_10px_rgba(80,255,170,0.45),0_0_24px_rgba(80,255,170,0.25),inset_0_0_10px_rgba(80,255,170,0.12)]">
+                Start today
+              </span>
+            </a>
+          </div>
         </div>
       </div>
+      </div>
+
     </section>
   );
 }
-
-
 
 
 function Ticker() {
@@ -239,11 +253,11 @@ function GalleryShowcase({ images }) {
   },[displayOrder.length,isPaused,selectedImage]);
 
   useEffect(()=>{
-    if(!displayOrder.length) return;
-    const syncTimer=window.setTimeout(()=>setMobileSeed(Math.floor(Date.now()/45000)),0);
-    const t=window.setInterval(()=>setMobileSeed(c=>c+1),45000);
+    if(!displayOrder.length||isPaused||selectedImage) return;
+    const syncTimer=window.setTimeout(()=>setMobileSeed(Math.floor(Date.now()/5000)),0);
+    const t=window.setInterval(()=>setMobileSeed(c=>c+1),5000);
     return ()=>{window.clearTimeout(syncTimer);window.clearInterval(t);};
-  },[displayOrder.length]);
+  },[displayOrder.length,isPaused,selectedImage]);
 
   const currentSlide=useMemo(()=>{
     if(!displayOrder.length) return [];
@@ -266,7 +280,7 @@ function GalleryShowcase({ images }) {
         <div className="gallery-hdr w-full !mb-2 !flex flex-col !items-start  !gap-0">
           <div>
             <h2 className="sec-title mb-0 !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
-              A place built for<br /><em>deep work</em>
+              A place built for <em>deep work</em>
             </h2>
           </div>
           <p className="mt-0 !text-left w-full !text-[0.58rem] !leading-5 !text-[#7890a8] md:!text-[0.78rem] md:!leading-6">
@@ -457,7 +471,7 @@ function CabinsSection() {
       <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-3 md:!px-10 md:!py-20">
           <div className="rv">
           <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
-            Quiet cabins built for<br /><em>deep focus</em>
+            Quiet cabins built for <em>deep focus</em>
           </h2>
           <p className="sec-desc !max-w-[520px] !text-[0.65rem] !leading-6 !text-[#a8bdd8] md:!text-[0.92rem] md:!leading-7">
             A dedicated close-up of the EduCafe cabin space for uninterrupted study sessions.
@@ -496,7 +510,7 @@ function ExamTable() {
       <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-3 md:!px-10 md:!py-20">
         <div className="rv">
           <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
-            Exam Calendar.<br /><em>2026</em>
+            Exam Calendar <em>2026</em>
           </h2>
           <p className="sec-desc !max-w-[520px] !text-[0.65rem] !leading-6 !text-[#a8bdd8] md:!text-[0.92rem] md:!leading-7">
             Chronological exam timeline verified against official notifications. Filter by category. Gold dates are confirmed. Grey are estimated.
@@ -627,9 +641,9 @@ function AchieversSection() {
   return (
     <div className="ach-wrap !bg-black" id="achievers">
       <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-5 md:!px-10 md:!py-20">
-        <div className="rv !mx-auto !max-w-[620px] !text-center">
+        <div className="rv !mx-auto !max-w-[620px] !text-left">
           <h2 className="sec-title !text-center !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
-            Students who walked<br />in - and <em>walked out winning</em>
+            Students who walked in - and <em>walked out winning</em>
           </h2>
           <p className="sec-desc !mx-auto !text-center !text-[0.65rem] !leading-6 !text-[#a8bdd8] md:!text-[0.92rem] md:!leading-7">
             Real achievers from the EduCafe database.
@@ -683,7 +697,7 @@ function ContactSection() {
         <div className="contact-grid !grid !grid-cols-1 !gap-6 lg:!grid-cols-2">
           <div className="rv !space-y-3">
             <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
-              Ready to start?<br /><em>Let's talk.</em>
+              <em>Contact with us.</em>
             </h2>
             <p className="sec-desc !max-w-[500px] !text-[0.65rem] !leading-6 !text-[#a8bdd8] md:!text-[0.9rem] md:!leading-7">
               Whether you have a question, want to see the space, or are ready to join - reach out. We respond fast.
@@ -745,7 +759,7 @@ function UpcomingProjectsSection() {
         <div className="rv !mb-6 !max-w-[620px]">
 
           <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
-            Upcoming <em>Projects</em>
+            Project <em>Mythos</em> - <p className="text-sm font-sans font-light">Development in progress</p>
           </h2>
 
         </div>
@@ -754,9 +768,9 @@ function UpcomingProjectsSection() {
           {upcomingProjects.map((item) => (
             <article
               key={item.title}
-              className="rv !overflow-hidden h-full !rounded-[18px] !border !border-white/10 "
+              className="rv  h-full !rounded-[18px] !border !border-white/10 "
             >
-              <div className="!relative h-150 !w-full  ">
+              <div className="!relative h-130 !w-full  ">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -764,9 +778,7 @@ function UpcomingProjectsSection() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                   className="!object-cover"
                 />
-                <div className="!absolute !left-4 !top-4 !inline-flex !rounded-full !border !border-[#23e07b]/20 !bg-black/45 !px-3 !py-1 !text-[0.52rem] !font-semibold !uppercase !tracking-[0.1em] !text-[#bdf4dc]">
-                  Under Development
-                </div>
+          
               </div>
 
               <div className="!p-4 md:!p-5">
