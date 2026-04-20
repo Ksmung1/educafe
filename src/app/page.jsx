@@ -22,7 +22,7 @@ import Navbar from "@/app/components/Navbar";
 import { MessageCircle } from "lucide-react";
 
 const heroStats = [
-  { value: "200+", label: "Enrolled Students" },
+  { value: "200+", label: "Students Enrolled" },
   { value: "34+", label: "Exam Tracks" },
   { value: "100%", label: "Focus Guaranteed" },
 ];
@@ -81,9 +81,9 @@ const upcomingProjects = [
 
 const whyChoose = [
   { icon: "🎯", title: "Silence by design", text: "No distractions, no noise. Our study zones are built for sustained deep focus - the kind that moves you forward." },
-  { icon: "📅", title: "Always-current exam intel", text: "We track every notification - dates, vacancies, syllabus changes - so you don&apos;t have to hunt for information." },
-  { icon: "🤝", title: "Community of serious aspirants", text: "Being around people who are genuinely working hard is the best motivation you&apos;ll find. That&apos;s the EduCafe effect." },
-  { icon: "📚", title: "Every stream, one roof", text: "UPSC. Banking. Medical. Engineering. SSC. It doesn&apos;t matter which path you&apos;re on - we have space for you here." },
+  { icon: "📅", title: "Always-current exam intel", text: "We track every notification - dates, vacancies, syllabus changes - so you don't have to hunt for information." },
+  { icon: "🤝", title: "Community of serious aspirants", text: "Being around people who are genuinely working hard is the best motivation you'll find. That's the EduCafe effect." },
+  { icon: "📚", title: "Every stream, one roof", text: "UPSC. Banking. Medical. Engineering. SSC. It doesn't matter which path you're on - we have space for you here." },
 ];
 
 const seatData = {};
@@ -126,7 +126,7 @@ function Hero() {
           Your exam.<br />Your timeline.<br /><em>Our space.</em>
         </h1>
         <p className="hero-body !mb-0 !max-w-[460px] !text-[0.72rem] !font-light !leading-[1.8] !text-gray-100 md:!text-[1rem]">
-          Most students don&apos;t fail because they lack talent -<br />
+          Most students don't fail because they lack talent -<br />
           they fail because they lack the right environment.<br />
           At EduCafe, we fix that. For <strong>UPSC, NEET, JEE, SSC, Banking</strong> and beyond - your preparation starts here.
         </p>
@@ -664,7 +664,7 @@ function ContactSection() {
         <div className="contact-grid !grid !grid-cols-1 !gap-6 lg:!grid-cols-2">
           <div className="rv !space-y-3">
             <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
-              Ready to start?<br /><em>Let&apos;s talk.</em>
+              Ready to start?<br /><em>Let's talk.</em>
             </h2>
             <p className="sec-desc !max-w-[500px] !text-[0.65rem] !leading-6 !text-[#a8bdd8] md:!text-[0.9rem] md:!leading-7">
               Whether you have a question, want to see the space, or are ready to join - reach out. We respond fast.
