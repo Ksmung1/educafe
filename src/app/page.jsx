@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
-import heroImage from "@/assets/hero.png";
 import educafe1 from "@/assets/educafe1.png";
 import educafe2 from "@/assets/educafe2.png";
 import educafe3 from "@/assets/educafe3.png";
@@ -116,13 +115,13 @@ function ratioGroup(aspectRatio) {
 // ─── Hero ─────────────────────────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="hero  !mx-auto !grid !w-full !max-w-[1200px] !grid-cols-1 !items-center !gap-2  !pt-0 md:!grid-cols-[1.05fr_0.95fr] md:!px-10 md:!pt-20 pb-0 mb-0">
-       <div className="!absolute !inset-0 !bg-black/10" />
-           <div className="tag !inline-flex !items-center !gap-1.5 !rounded-full !border !border-white/10 !bg-white/5 !px-2.5 !py-1.5 !text-[0.55rem] !font-semibold !tracking-[0.1em] !text-[#a8bdd8]">
-          <span className="tag-pulse" />Dedicated Study Hub
-        </div>
-      <div className="hero-left py-4 px-3 overflow-hidden rv !bg-[url('/images/bg.png')] bg-opacity-0 !bg-cover  !bg-no-repeat  !bg-[80%_center] ">
-    
+    <section className="hero !grid !w-full !items-center !gap-8 !pt-0 !pb-0 !mb-0 md:!px-0 md:!pt-20">
+      <div className="!absolute !inset-0 !bg-black/10" />
+      <div className="tag !mb-4 !ml-3 !inline-flex !items-center !gap-1.5 !rounded-full !border !border-white/10 !bg-white/5 !px-2.5 !py-1.5 !text-[0.55rem] !font-semibold !tracking-[0.1em] !text-[#a8bdd8] md:!ml-12 lg:!ml-20">
+        <span className="tag-pulse" />
+        Dedicated Study Hub
+      </div>
+      <div className="hero-left rv !relative !overflow-hidden !px-3 !py-4 !bg-[url('/images/bg.png')] !bg-cover !bg-no-repeat !bg-[80%_center] md:!px-12 lg:!px-20">
         <h1 className="hero-heading !mb-4 !font-['Playfair_Display'] !text-[clamp(1.9rem,6vw,4.8rem)] !font-black !leading-[1.05] !tracking-[-0.02em] !text-[#d8e8f8]">
           Your exam.<br />Your timeline.<br /><em>Our space.</em>
         </h1>
@@ -131,12 +130,14 @@ function Hero() {
           they fail because they lack the right environment.<br />
           At EduCafe, we fix that. For <strong>UPSC, NEET, JEE, SSC, Banking</strong> and beyond - your preparation starts here.
         </p>
-        <div className=" flex  items-end !gap-4">
-          <a href="#exams" className="!inline-flex !items-center !gap-1.5 !rounded-full !bg-[linear-gradient(135deg,#1db56a,#14a05e)] !px-2 !py-2 text-[8px] !font-semibold !text-white !shadow-[0_8px_28px_rgba(29,181,106,0.28)] md:!px-5 md:!py-3 md:!text-[0.82rem]">
-            <span>📅</span>2026 Exam Dates
+        <div className="btn-set !mt-5 !flex !flex-wrap !gap-3 md:!mt-8">
+          <a href="#exams" className="!inline-flex !items-center !gap-1.5 !rounded-full !bg-[linear-gradient(135deg,#1db56a,#14a05e)] !px-3 !py-2 !text-[0.7rem] !font-semibold !text-white !shadow-[0_8px_28px_rgba(29,181,106,0.28)] md:!px-5 md:!py-3 md:!text-[0.82rem]">
+            <span>Exam</span>
+            2026 Exam Dates
           </a>
 
-        <div className="hero-proof !mt-0 !flex !gap-5 !border-t !border-white/10 !pt-5 md:!gap-8 md:!mt-10 md:!pt-8">
+        </div>
+        <div className="hero-proof !mt-6 !flex !gap-5 !border-t !border-white/10 !pt-5 md:!mt-10 md:!gap-8 md:!pt-8">
           {heroStats.map((item) => (
             <div key={item.label}>
               <div className="proof-num !font-['Playfair_Display'] !text-[1rem] !font-black !leading-none !text-white md:!text-[2rem]">{item.value}</div>
@@ -144,46 +145,14 @@ function Hero() {
             </div>
           ))}
         </div>
-          </div>
-
-
       </div>
-
     </section>
   );
 }
 
-function BelowHeader () {
-  return (
-    
-      <div className="hero-right  rv rv-delay-1 !relative !min-h-[360px] !overflow-hidden !rounded-[18px] !border !border-white/10 !bg-[rgba(255,255,255,0.03)] !p-4 md:!min-h-[520px] md:!rounded-[28px] md:!p-6">
-        <div className="hero-right-glow !absolute !inset-0 !bg-[radial-gradient(circle_at_top,rgba(29,181,106,0.18),transparent_55%)]" />
-        {/* <div className="hero-watermark pointer-events-none !absolute !right-0 !top-4 !select-none !text-[clamp(2.5rem,10vw,7rem)] !font-black !tracking-[0.18em] !text-white/5">CAFÉ</div> */}
-        <div className="panel-eyebrow !relative !z-10 !mb-2 !text-[0.52rem] !font-bold !uppercase !tracking-[0.12em] !text-[#1db56a] md:!text-[0.62rem]">We prepare you for</div>
-        <div className="panel-title !relative !z-10 !mb-3 !font-['Playfair_Display'] !text-[1rem] !font-black !leading-tight !text-white md:!text-[1.55rem]">
-          Every exam that<br />matters in India
-        </div>
-        <div className="exam-chips-grid !relative !z-10 !mb-4 !flex !flex-wrap !gap-1">
-          {examChips.map((chip) => (
-            <span key={chip.label} className={`exam-chip chip-${chip.tone} !inline-flex !items-center !rounded-full !border !px-2 !py-0.5 !text-[0.52rem] !font-medium md:!px-3 md:!py-1.5 md:!text-[0.7rem] ${chip.tone==="upsc"?"!border-[#2c4c76] !bg-[#101b30] !text-[#cfe0ff]":chip.tone==="bank"?"!border-[#245c46] !bg-[#0f241b] !text-[#bdf4dc]":chip.tone==="med"?"!border-[#5a3254] !bg-[#21141f] !text-[#f0d0e8]":chip.tone==="eng"?"!border-[#5a4a22] !bg-[#201b10] !text-[#ffe9b8]":"!border-[#31456c] !bg-[#10192b] !text-[#d0def4]"}`}>
-              {chip.label}
-            </span>
-          ))}
-        </div>
-        <div className="upcoming-widget !relative !z-10 !rounded-[12px] !border !border-white/10 !bg-white/5 !p-3 md:!rounded-[18px] md:!p-4">
-          <div className="widget-label !mb-2 !flex !items-center !gap-1.5 !text-[0.5rem] !font-bold !uppercase !tracking-[0.1em] !text-[#4e6380] md:!text-[0.6rem]">
-            <span className="live-dot" />Upcoming confirmed dates
-          </div>
-          {upcomingExams.map((item) => (
-            <div key={item.name} className="upcoming-item !flex !items-center !justify-between !border-b !border-white/5 !py-1.5 last:!border-b-0">
-              <span className="upcoming-name !text-[0.6rem] !text-[#a8bdd8] md:!text-[0.8rem]">{item.name}</span>
-              <span className={`upcoming-date !text-[0.58rem] !font-bold md:!text-[0.78rem] ${item.past?"!text-[#4e6380]":"!text-[#23e07b]"}`}>{item.date}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-  )
-}
+
+
+
 function Ticker() {
   const track = [...tickerItems, ...tickerItems];
 
