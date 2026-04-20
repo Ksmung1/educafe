@@ -125,13 +125,13 @@ function Quote() {
 // ─── Hero ─────────────────────────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="hero !grid !w-full !items-center !gap-8 !pt-0 !pb-0 !mb-0 md:!px-0 md:!pt-20">
+    <section className="hero !grid !w-full !items-center !gap-1 !pt-0 !pb-0 !mb-0 md:!px-0 md:!pt-20">
       <div className="!absolute !inset-0 !bg-black/10" />
       <div className="tag !mb-0 !ml-3 !inline-flex !items-center !gap-1.5 !rounded-full !border !border-white/10 !bg-white/5 !px-2.5 !py-1.5 !text-[0.55rem] !font-semibold !tracking-[0.1em] !text-[#a8bdd8] md:!ml-12 lg:!ml-20">
         <span className="tag-pulse" />
         Dedicated Study Hub
       </div>  
-      <div className="hero-left rv !relative !overflow-hidden !px-3 !py-4 !bg-[url('/images/bg.png')] !bg-cover !bg-no-repeat !bg-[80%_center] md:!px-12 lg:!px-20">
+      <div className="hero-left rv !relative !overflow-hidden !px-3 pt-1 !pb-4 !bg-[url('/images/bg.png')] !bg-cover !bg-no-repeat !bg-[80%_center] md:!px-12 lg:!px-20">
         <h1 className="hero-heading !mb-4 !font-sans !font-semibold !text-[24px] !leading-[1.05] !tracking-[-0.02em] !text-[#d8e8f8]">
           The right environment<br />doesn’t just help you study.<br />It helps you <em>become consistent.</em>
         </h1>
@@ -148,7 +148,7 @@ function Hero() {
     <span className="!absolute !inset-0 !rounded-full [box-shadow:0_0_18px_4px_rgba(50,255,140,0.18),0_0_40px_8px_rgba(50,255,140,0.10)]" />
 
     {/* Inner pill */}
-    <span className="!relative !z-10 !rounded-full !border !border-[rgba(120,255,180,0.38)] !bg-[linear-gradient(180deg,rgba(12,35,20,0.95),rgba(7,20,13,1))] !px-8 !py-[10px] [box-shadow:0_0_10px_rgba(80,255,170,0.45),0_0_24px_rgba(80,255,170,0.25),inset_0_0_10px_rgba(80,255,170,0.12)]">
+    <span className="!relative !z-10 !rounded-full !border !border-[rgba(120,255,180,0.38)] !bg-[linear-gradient(180deg,rgba(12,35,20,0.95),rgba(7,20,13,1))] !px-3.5 !py-[8px] [box-shadow:0_0_10px_rgba(80,255,170,0.45),0_0_24px_rgba(80,255,170,0.25),inset_0_0_10px_rgba(80,255,170,0.12)]">
       Reserve Your Seat
     </span>
   </a>
