@@ -122,21 +122,29 @@ function Hero() {
         Dedicated Study Hub
       </div>
       <div className="hero-left rv !relative !overflow-hidden !px-3 !py-4 !bg-[url('/images/bg.png')] !bg-cover !bg-no-repeat !bg-[80%_center] md:!px-12 lg:!px-20">
-        <h1 className="hero-heading !mb-4 !font-['Playfair_Display'] !text-[clamp(1.9rem,6vw,4.8rem)] !font-black !leading-[1.05] !tracking-[-0.02em] !text-[#d8e8f8]">
-          Your exam.<br />Your timeline.<br /><em>Our space.</em>
+        <h1 className="hero-heading !mb-4 !font-sans !font-semibold !text-[24px] !leading-[1.05] !tracking-[-0.02em] !text-[#d8e8f8]">
+          The right environment<br />doesn’t just help you study.<br />It helps you <em>become consistent.</em>
         </h1>
         <p className="hero-body !mb-0 !max-w-[460px] !text-[0.72rem] !font-light !leading-[1.8] !text-gray-100 md:!text-[1rem]">
           Most students don't fail because they lack talent -<br />
           they fail because they lack the right environment.<br />
           At EduCafe, we fix that. For <strong>UPSC, NEET, JEE, SSC, Banking</strong> and beyond - your preparation starts here.
         </p>
-        <div className="btn-set !mt-5 !flex !flex-wrap !gap-3 md:!mt-8">
-          <a href="#exams" className="!inline-flex !items-center !gap-1.5 !rounded-full !bg-[linear-gradient(135deg,#1db56a,#14a05e)] !px-3 !py-2 !text-[0.7rem] !font-semibold !text-white !shadow-[0_8px_28px_rgba(29,181,106,0.28)] md:!px-5 md:!py-3 md:!text-[0.82rem]">
-            <span>Exam</span>
-            2026 Exam Dates
-          </a>
+<div className="!mt-5 !flex !flex-wrap !gap-3 md:!mt-8">
+  <a
+    href="#seats"
+    className="group !relative !inline-flex !items-center !justify-center !overflow-visible !rounded-full !px-0 !py-0 !text-[0.9rem] !font-semibold !text-[#e8fff1] !transition-all !duration-300 hover:!scale-[1.03]"
+  >
 
-        </div>
+    {/* Outer glow */}
+    <span className="!absolute !inset-0 !rounded-full [box-shadow:0_0_18px_4px_rgba(50,255,140,0.18),0_0_40px_8px_rgba(50,255,140,0.10)]" />
+
+    {/* Inner pill */}
+    <span className="!relative !z-10 !rounded-full !border !border-[rgba(120,255,180,0.38)] !bg-[linear-gradient(180deg,rgba(12,35,20,0.95),rgba(7,20,13,1))] !px-8 !py-[10px] [box-shadow:0_0_10px_rgba(80,255,170,0.45),0_0_24px_rgba(80,255,170,0.25),inset_0_0_10px_rgba(80,255,170,0.12)]">
+      Reserve Your Seat
+    </span>
+  </a>
+</div>
         <div className="hero-proof !mt-6 !flex !gap-5 !border-t !border-white/10 !pt-5 md:!mt-10 md:!gap-8 md:!pt-8">
           {heroStats.map((item) => (
             <div key={item.label}>

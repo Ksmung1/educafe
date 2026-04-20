@@ -259,7 +259,7 @@ export default function HomeSeatMap({ seats }) {
     : "";
 
   return (
-    <div ref={sectionRef} className="seats-wrap !bg-black" id="seats">
+    <div ref={sectionRef} className="seats-wrap !scroll-mt-24 !bg-black md:!scroll-mt-28" id="seats">
       <style jsx>{`
         @keyframes squadFloat {
           0%, 100% { transform: translateY(0); }
