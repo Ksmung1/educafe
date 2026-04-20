@@ -132,7 +132,7 @@ function Hero() {
         Dedicated Study Hub
       </div>  
       <div className="p-2 !bg-[url('/images/bg.png')] !bg-cover !bg-no-repeat !bg-[80%_center]">
-      <div className="!relative max-w-[250px] md:max-w-[600px] mx-auto !overflow-hidden !px-3  md:!px-12 lg:!px-20">
+      <div className="!relative max-w-[260px] mx-auto !overflow-hidden !px-3  md:!px-12 lg:!px-20">
         {/* Glassmorphism container for hero-left content */}
         <div 
           className="hero-left rv py-4 px-4"
@@ -733,8 +733,11 @@ function WhyChoose () {
   return (
               <div className="rv rv-delay-1 mt-5">
             <div className="why-box !rounded-[18px] !border !border-white/10 !bg-[rgba(255,255,255,0.03)] !p-3 md:!p-5">
-              <h4 className="!mb-3 !text-[1rem] !font-semibold !text-white md:!text-[0.95rem]">Why students choose EduCafe</h4>
-              <div className="!space-y-2">
+     <div className="rv mb-3">
+          <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
+            Why Students Choose <em>Educafe</em>
+          </h2>
+        </div>              <div className="!space-y-2">
                 {whyChoose.map((item)=>(
                   <div key={item.title} className="!flex !items-start !gap-2.5 !rounded-[10px] !border !border-white/10 !bg-white/5 !p-2.5 md:!rounded-[16px] md:!p-4">
                     <div className="!grid !h-8 !w-8 !shrink-0 !place-items-center !rounded-full !bg-[#10192b] !text-xl md:!h-11 md:!w-11 md:!text-lg">{item.icon}</div>
