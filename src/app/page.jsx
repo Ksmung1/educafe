@@ -86,7 +86,14 @@ const whyChoose = [
   { icon: "📚", title: "Every stream, one roof", text: "UPSC. Banking. Medical. Engineering. SSC. It doesn't matter which path you're on - we have space for you here." },
 ];
 
-const seatData = {};
+const campusLocation = {
+  title: "EduCafe Study Hall",
+  addressLine1: "EduCafe Study Hall",
+  addressLine2: "New, Sim Veng, Churachandpur, Manipur 795128",
+  mapsQuery: "EduCafe Study Hall",
+  satelliteHref: "https://www.google.com/maps/search/?api=1&query=EduCafe+Study+Hall+Dhubri+Assam&basemap=satellite",
+};
+
 
 function getSeatRecord(seatMap, num) {
   return seatMap[num] || { seatNumber: num, state: "available", name: "", exam: "", shift: "" };
@@ -729,6 +736,61 @@ function ContactSection() {
     </div>
   );
 }
+
+function AddressSection() {
+  const embedQuery = encodeURIComponent(campusLocation.mapsQuery);
+
+  return (
+    <div className="address-wrap !bg-black" id="address">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-3 md:!px-10 md:!py-20">
+        <div className="rv !mb-4 !max-w-[720px]">
+  
+          <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
+            Address and <em>live location</em>
+          </h2>
+
+        </div>
+
+        <div className="!grid !gap-4 lg:!grid-cols-[0.95fr_1.25fr]">
+          <div className="rv !rounded-[18px] !border !border-white/10 !bg-[linear-gradient(180deg,rgba(10,15,26,0.98),rgba(6,10,18,0.98))] !p-4 md:!rounded-[24px] md:!p-6">
+
+
+            <div className=" !space-y-1">
+              <div className="">
+                <div className="!mt-2 !text-[0.9rem] !font-semibold !text-white md:!text-[1.05rem]">
+                  {campusLocation.addressLine1}
+                </div>
+                <div className="!mt-1 !text-[0.68rem] !leading-6 !text-[#a8bdd8] md:!text-[0.82rem]">
+                  {campusLocation.addressLine2}
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <div className="rv rv-delay-1 !grid ">
+  
+            <div className="!overflow-hidden !rounded-[18px] !border !border-white/10 !bg-[linear-gradient(180deg,rgba(10,15,26,0.98),rgba(6,10,18,0.98))] md:!rounded-[24px]">
+              <div className="!border-b !border-white/10 !px-4 !py-3 md:!px-5">
+              </div>
+              <div className="!relative !aspect-[16/11] !w-full">
+                <iframe
+                  title="EduCafe satellite map view"
+                  src={`https://maps.google.com/maps?q=${embedQuery}&t=k&z=18&output=embed`}
+                  className="!absolute !inset-0 !h-full !w-full"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function WhyChoose () {
   return (
               <div className="rv rv-delay-1 mt-5">
@@ -800,6 +862,8 @@ function UpcomingProjectsSection() {
   );
 }
 
+
+
 function Footer() {
   return (
     <footer className="site-footer !flex !items-center !justify-center !gap-3 !border-t !border-white/10 !px-3 !py-4 md:!px-6 md:!py-3">
@@ -868,6 +932,7 @@ export default function Home() {
       <NewsSection/>
       <AchieversSection/>
       <UpcomingProjectsSection/>
+      <AddressSection/>
       <ContactSection/>
       <Quote/>
       <Footer/>
