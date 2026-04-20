@@ -132,7 +132,7 @@ function Hero() {
         Dedicated Study Hub
       </div>  
       <div className="p-2 !bg-[url('/images/bg.png')] !bg-cover !bg-no-repeat !bg-[80%_center]">
-      <div className="!relative max-w-[250px] mx-auto !overflow-hidden !px-3  md:!px-12 lg:!px-20">
+      <div className="!relative max-w-[250px] md:max-w-[600px] mx-auto !overflow-hidden !px-3  md:!px-12 lg:!px-20">
         {/* Glassmorphism container for hero-left content */}
         <div 
           className="hero-left rv py-4 px-4"
