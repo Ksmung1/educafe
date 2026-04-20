@@ -110,25 +110,33 @@ function ratioGroup(aspectRatio) {
   if (aspectRatio <= 0.8) return "tall";
   return "balanced";
 }
+function Quote() {
+  return (
+    <div className="relative mx-4 pb-10 px-3 max-w-[560px] ">
 
 
+      {/* Quote text */}
+      <p className="relative m-0 font-serif text-[12px] italic underline font-normal text-green-400 leading-[1.8] text-center tracking-[0.02em]">
+        "The time to prepare for tomorrow is today"
+      </p>
+    </div>
+  )
+}
 // ─── Hero ─────────────────────────────────────────────────────────────────
 function Hero() {
   return (
     <section className="hero !grid !w-full !items-center !gap-8 !pt-0 !pb-0 !mb-0 md:!px-0 md:!pt-20">
       <div className="!absolute !inset-0 !bg-black/10" />
-      <div className="tag !mb-4 !ml-3 !inline-flex !items-center !gap-1.5 !rounded-full !border !border-white/10 !bg-white/5 !px-2.5 !py-1.5 !text-[0.55rem] !font-semibold !tracking-[0.1em] !text-[#a8bdd8] md:!ml-12 lg:!ml-20">
+      <div className="tag !mb-0 !ml-3 !inline-flex !items-center !gap-1.5 !rounded-full !border !border-white/10 !bg-white/5 !px-2.5 !py-1.5 !text-[0.55rem] !font-semibold !tracking-[0.1em] !text-[#a8bdd8] md:!ml-12 lg:!ml-20">
         <span className="tag-pulse" />
         Dedicated Study Hub
-      </div>
+      </div>  
       <div className="hero-left rv !relative !overflow-hidden !px-3 !py-4 !bg-[url('/images/bg.png')] !bg-cover !bg-no-repeat !bg-[80%_center] md:!px-12 lg:!px-20">
         <h1 className="hero-heading !mb-4 !font-sans !font-semibold !text-[24px] !leading-[1.05] !tracking-[-0.02em] !text-[#d8e8f8]">
           The right environment<br />doesn’t just help you study.<br />It helps you <em>become consistent.</em>
         </h1>
         <p className="hero-body !mb-0 !max-w-[460px] !text-[0.72rem] !font-light !leading-[1.8] !text-gray-100 md:!text-[1rem]">
-          Most students don't fail because they lack talent -<br />
-          they fail because they lack the right environment.<br />
-          At EduCafe, we fix that. For <strong>UPSC, NEET, JEE, SSC, Banking</strong> and beyond - your preparation starts here.
+          Built for serious aspirants who want to make every hour count.
         </p>
 <div className="!mt-5 !flex !flex-wrap !gap-3 md:!mt-8">
   <a
@@ -145,6 +153,9 @@ function Hero() {
     </span>
   </a>
 </div>
+    <p className="hero-body mt-2 !mb-0 !max-w-[460px] !text-[0.68rem] !font-light !leading-[1.8] !text-gray-200 md:!text-[1rem]">
+          Built for serious aspirants who want to make every hour count.
+        </p>
         <div className="hero-proof !mt-6 !flex !gap-5 !border-t !border-white/10 !pt-5 md:!mt-10 md:!gap-8 md:!pt-8">
           {heroStats.map((item) => (
             <div key={item.label}>
@@ -251,7 +262,7 @@ function GalleryShowcase({ images }) {
 
   return (
     <div className="gallery-wrap !bg-black" id="gallery">
-      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6 md:!px-10 md:!py-20">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-3 md:!px-10 md:!py-20">
         <div className="gallery-hdr w-full !mb-2 !flex flex-col !items-start  !gap-0">
           <div>
             <h2 className="sec-title mb-0 !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
@@ -362,7 +373,7 @@ function NewsSection() {
 
   return (
     <div className="news-wrap !bg-black" id="news">
-      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6 md:!px-10 md:!py-20">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-3 md:!px-10 md:!py-20">
           <div className="rv">
           <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
 Exam <em>News & Alerts</em>          </h2>
@@ -443,7 +454,7 @@ Exam <em>News & Alerts</em>          </h2>
 function CabinsSection() {
   return (
     <div className="cabins-wrap !bg-black" id="cabins">
-      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6 md:!px-10 md:!py-20">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-3 md:!px-10 md:!py-20">
           <div className="rv">
           <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
             Quiet cabins built for<br /><em>deep focus</em>
@@ -482,7 +493,7 @@ function ExamTable() {
 
   return (
     <div className="exam-wrap" id="exams">
-      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6 md:!px-10 md:!py-20">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-3 md:!px-10 md:!py-20">
         <div className="rv">
           <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
             Exam Calendar.<br /><em>2026</em>
@@ -668,7 +679,7 @@ function AchieversSection() {
 function ContactSection() {
   return (
     <div className="contact-wrap !bg-black" id="contact">
-      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6  md:!px-10 md:!py-20">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-2  md:!px-10 md:!py-20">
         <div className="contact-grid !grid !grid-cols-1 !gap-6 lg:!grid-cols-2">
           <div className="rv !space-y-3">
             <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
@@ -730,7 +741,7 @@ function WhyChoose () {
 function UpcomingProjectsSection() {
   return (
     <div className="projects-wrap !bg-black" id="projects">
-      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-6 md:!px-10 md:!py-20">
+      <div className="section-inner !mx-auto !max-w-[1200px] !px-3 !py-3 md:!px-10 md:!py-20">
         <div className="rv !mb-6 !max-w-[620px]">
 
           <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
@@ -776,7 +787,7 @@ function UpcomingProjectsSection() {
 
 function Footer() {
   return (
-    <footer className="site-footer !flex !items-center !justify-center !gap-3 !border-t !border-white/10 !px-3 !py-4 md:!px-6 md:!py-6">
+    <footer className="site-footer !flex !items-center !justify-center !gap-3 !border-t !border-white/10 !px-3 !py-4 md:!px-6 md:!py-3">
       <span className="foot-credit !text-[0.8rem] !text-white md:!text-[0.1rem]">
         Made with <span className="text-red-400">♥</span> by <a className="font-bold text-white" href="https://flowpandas.com/"><span className="text-orange-500">Flow</span><span className="text-white">Pandas</span></a> 
       </span>
@@ -843,6 +854,7 @@ export default function Home() {
       <AchieversSection/>
       <UpcomingProjectsSection/>
       <ContactSection/>
+      <Quote/>
       <Footer/>
 
       <div className="flex fixed bottom-4 right-4  z-10 ">
