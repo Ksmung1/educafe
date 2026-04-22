@@ -704,7 +704,7 @@ function ContactSection() {
         <div className="contact-grid !grid !grid-cols-1 !gap-6 lg:!grid-cols-2">
           <div className="rv !space-y-3">
             <h2 className="sec-title !font-['Playfair_Display'] !text-[clamp(1.3rem,3.5vw,2.75rem)] !font-black !leading-tight !text-[#d8e8f8]">
-              <em>Contact with us.</em>
+              <em>Connect with us.</em>
             </h2>
             <p className="sec-desc !max-w-[500px] !text-[0.65rem] !leading-6 !text-[#a8bdd8] md:!text-[0.9rem] md:!leading-7">
               Whether you have a question, want to see the space, or are ready to join - reach out. We respond fast.
