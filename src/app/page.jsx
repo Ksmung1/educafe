@@ -20,6 +20,7 @@ import { newsSeed } from "@/data/newsSeed";
 import HomeSeatMap from "@/app/components/HomeSeatMap";
 import Navbar from "@/app/components/Navbar";
 import { MessageCircle } from "lucide-react";
+import BankMock from "./components/BankMock";
 
 const heroStats = [
   { value: "200+", label: "Students Enrolled" },
@@ -908,6 +909,7 @@ export default function Home() {
       <Hero/>
                           <Ticker/>
 
+        <BankMock/>
             <HomeSeatMap seats={seatItems} />
 
       <div className='px-2'>   
